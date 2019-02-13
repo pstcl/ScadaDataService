@@ -1,18 +1,16 @@
 package org.pstcl.sldc.scada.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,17 +20,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="scadadata3")
+@Table(name="scada_data_repo_2")
 public class ScadaDataEntity {
 
 	@JsonIgnore
 	@EmbeddedId
 	private ScadaEntityId entityId;
 	
-	private Date dateS;
-	private Time timeS;
+
+	@DateTimeFormat(pattern="yyyy-dd-MM HH:mm:ss")
+	private Date dateTimeWrongFormat;
+	
 	@Column(precision=20,scale=10)
 	private BigDecimal value;
+	
 	private String flag;
 	
 	
@@ -53,24 +54,21 @@ public class ScadaDataEntity {
 	public void setPointID(String pointsID) {
 		entityId.setPointID(pointsID);
 	}
-	public Date getDateTimeLocal() {
-		return entityId.getDateTimeLocal();
+	
+	
+	public LocalDate getDateS() {
+		return this.entityId.getDateS();
 	}
-	public void setDateTimeLocal(Date dateTimeLocal) {
-		entityId.setDateTimeLocal(dateTimeLocal);
-	}
-	public Date getDateS() {
-		return dateS;
-	}
-	public void setDateS(Date dateS) {
-		this.dateS = dateS;
+	public void setDateS(LocalDate dateS) {
+		this.entityId.setDateS(dateS);
 	}
 	public Time getTimeS() {
-		return timeS;
+		return this.entityId.getTimeS();
 	}
 	public void setTimeS(Time timeS) {
-		this.timeS = timeS;
+		this.entityId.setTimeS(timeS);
 	}
+	
 	public BigDecimal getValue() {
 		return value;
 	}
@@ -82,6 +80,12 @@ public class ScadaDataEntity {
 	}
 	public void setFlag(String flag) {
 		this.flag = flag;
+	}
+	public Date getDateTimeWrongFormat() {
+		return dateTimeWrongFormat;
+	}
+	public void setDateTimeWrongFormat(Date dateTimeWrongFormat) {
+		this.dateTimeWrongFormat = dateTimeWrongFormat;
 	}
 
 	

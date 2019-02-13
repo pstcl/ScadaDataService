@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -180,9 +184,9 @@ public class ExcelService {
 						if(null!=row.getCell(columnIndices.get("DateS")[0]))
 						{
 
-							DateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+							DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 							Date dateS = new Date(formatter.parse(row.getCell(columnIndices.get("DateS")[0]).getStringCellValue()).getTime());
-							entity.setDateS(dateS);
+							entity.setDateS(LocalDate.from(Instant.ofEpochMilli(dateS.getTime()).atZone(ZoneId.systemDefault())));
 						}
 						if(null!=row.getCell(columnIndices.get("TimeS")[0]))
 						{
@@ -193,7 +197,8 @@ public class ExcelService {
 						}
 						if(null!=row.getCell(columnIndices.get("Time")[0]))
 						{
-							entity.setDateTimeLocal(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
+						//	entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
+							
 						}
 						if(null!=row.getCell(columnIndices.get("Value")[0]))
 						{
