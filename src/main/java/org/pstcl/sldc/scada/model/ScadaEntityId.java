@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Embeddable;
 
 
-
-@Embeddable
 public class ScadaEntityId implements Serializable{
 
 	
@@ -48,6 +46,7 @@ public class ScadaEntityId implements Serializable{
 	}
 	private String ddeItem;
 	private String pointID;
+	
 	private Date dateTimeLocal;
 	public String getDdeItem() {
 		return ddeItem;

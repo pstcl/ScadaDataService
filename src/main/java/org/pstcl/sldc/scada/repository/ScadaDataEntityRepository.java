@@ -1,5 +1,6 @@
 package org.pstcl.sldc.scada.repository;
 
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ public interface ScadaDataEntityRepository extends PagingAndSortingRepository<Sc
 	
 
 	@RestResource(exported = false)
-    @Query("select entity from ScadaDataEntity entity where entity.entityId.dateS >= :dateS")
+    @Query(value="select entity from ScadaDataEntity entity where entity.entityId.dateS >= :dateS",nativeQuery = true)
     List<ScadaDataEntity> findAllWithdateS(
     		@DateTimeFormat(pattern="yyyy-MM-dd")    		@Param("dateS") LocalDate dateS);
 	//@DateTimeFormat(pattern="yyyy-MM-dd")@Param("dateS")

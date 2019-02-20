@@ -29,7 +29,7 @@ public class ScadaDataEntity {
 	@EmbeddedId
 	private ScadaEntityId entityId;
 	
-	private Date dateS;
+	private LocalDate dateS;
 	private Time timeS;
 	@Column(precision=20,scale=10)
 	private BigDecimal value;
@@ -59,11 +59,11 @@ public class ScadaDataEntity {
 	public void setDateTimeLocal(Date dateTimeLocal) {
 		entityId.setDateTimeLocal(dateTimeLocal);
 	}
-	public Date getDateS() {
+	public LocalDate getDateS() {
 		return dateS;
 	}
-	public void setDateS(Date dateS) {
-		this.dateS = dateS;
+	public void setDateS(LocalDate localDate) {
+		this.dateS = localDate;
 	}
 	public Time getTimeS() {
 		return timeS;

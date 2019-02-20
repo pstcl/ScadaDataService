@@ -197,7 +197,7 @@ public class ExcelService {
 						}
 						if(null!=row.getCell(columnIndices.get("Time")[0]))
 						{
-						//	entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
+						entity.setDateTimeLocal(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
 							
 						}
 						if(null!=row.getCell(columnIndices.get("Value")[0]))
