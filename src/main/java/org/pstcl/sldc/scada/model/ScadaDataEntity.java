@@ -22,18 +22,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="scadadata3")
+@Table(name = "scadadata4")
 public class ScadaDataEntity {
 
 	@JsonIgnore
 	@EmbeddedId
-	private ScadaEntityId entityId;
+	 ScadaEntityId entityId;
 	
-	private Date dateS;
-	private Time timeS;
+    LocalDate dateS;
+	Time timeS;
 	@Column(precision=20,scale=10)
-	private BigDecimal value;
-	private String flag;
+	BigDecimal value;
+	String flag;
 	
 	
 	
@@ -53,17 +53,15 @@ public class ScadaDataEntity {
 	public void setPointID(String pointsID) {
 		entityId.setPointID(pointsID);
 	}
-	public Date getDateTimeLocal() {
+	public String getDateTimeLocal() {
 		return entityId.getDateTimeLocal();
 	}
-	public void setDateTimeLocal(Date dateTimeLocal) {
-		entityId.setDateTimeLocal(dateTimeLocal);
-	}
-	public Date getDateS() {
+	
+	public LocalDate getDateS() {
 		return dateS;
 	}
-	public void setDateS(Date dateS) {
-		this.dateS = dateS;
+	public void setDateS(LocalDate localDate) {
+		this.dateS = localDate;
 	}
 	public Time getTimeS() {
 		return timeS;
@@ -82,6 +80,10 @@ public class ScadaDataEntity {
 	}
 	public void setFlag(String flag) {
 		this.flag = flag;
+	}
+	public void setDateTimeLocal(String s) {
+		// TODO Auto-generated method stub
+		entityId.setDateTimeLocal(s);
 	}
 
 	

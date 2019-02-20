@@ -48,7 +48,7 @@ public class ScadaEntityId implements Serializable{
 	}
 	private String ddeItem;
 	private String pointID;
-	private Date dateTimeLocal;
+	private String dateTimeLocal;
 	public String getDdeItem() {
 		return ddeItem;
 	}
@@ -61,10 +61,10 @@ public class ScadaEntityId implements Serializable{
 	public void setPointID(String pointsID) {
 		this.pointID = pointsID;
 	}
-	public Date getDateTimeLocal() {
+	public String getDateTimeLocal() {
 		return dateTimeLocal;
 	}
-	public void setDateTimeLocal(Date dateTimeLocal) {
+	public void setDateTimeLocal(String dateTimeLocal) {
 		this.dateTimeLocal = dateTimeLocal;
 	}
 	

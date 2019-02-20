@@ -2,7 +2,9 @@ package org.pstcl.sldc.scada.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.text.DateFormat;
@@ -17,8 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -37,24 +42,27 @@ public class ExcelService {
 	@Autowired
 	ScadaDataEntityRepository repository;
 
-	@Scheduled(fixedRate = 5*60*1000)
+	@Scheduled(fixedRate = 2*60*1000)
 	public void scheduleFixedRateTask() {
-
+       
 		File fileToRead=getFileCopy();
-		List<ScadaDataEntity> list= readExcel(fileToRead);
+		List<ScadaDataEntity> list;
+		
+		list= readExcel(fileToRead);
 		repository.saveAll(list);
 		deleteFile(fileToRead);
+		
 		for (ScadaDataEntity scadaEntity : list) {
 			System.out.println(scadaEntity);
 		}
 	}
 
-	private static final String FILE_NAME = "E:\\scada-data\\scadadata.xlsm";
+	private static final String FILE_NAME = "C:\\Eclipse\\scadadata.xlsm";
 
 	private File getFileCopy()
 	{
 		File originalFile=new File(FILE_NAME);
-		String tempDirectoryName = "E:\\SLDC_ENERGY_ACC\\Temp\\" ;
+		String tempDirectoryName = "C:\\Eclipse\\Temp\\" ;
 
 		File tempDirectory = new File(tempDirectoryName);
 
@@ -89,7 +97,7 @@ public class ExcelService {
 
 		return zipDeleted;
 	}
-	private Map<String,int[]> getColumnIndices(Sheet datatypeSheet)
+	private Map<String,int[]> getColumnIndices(Sheet datatypeSheet, File fileToRead,Workbook wb)
 	{
 		Map<String,int[]> map=new HashMap<>();
 		for (Row row : datatypeSheet) {
@@ -128,7 +136,8 @@ public class ExcelService {
 					{
 
 						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
-						map.put(cell.getRichStringCellValue().getString().trim(), array);
+						  
+						  map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
 					if (cell.getRichStringCellValue().getString().trim().equals("Value")) 
 					{
@@ -156,8 +165,9 @@ public class ExcelService {
 		try {
 			inputStream = new FileInputStream(fileToRead);
 			Workbook workbook = new XSSFWorkbook(inputStream);
+			//workbook.getSettings().setRegion(CountryCode.INDIA); 
 			Sheet datatypeSheet = workbook.getSheetAt(0);
-			Map<String,int[]> columnIndices= getColumnIndices(datatypeSheet);
+			Map<String,int[]> columnIndices= getColumnIndices(datatypeSheet,fileToRead,workbook);
 
 			if(columnIndices!=null&&!columnIndices.isEmpty())
 			{
@@ -197,8 +207,16 @@ public class ExcelService {
 						}
 						if(null!=row.getCell(columnIndices.get("Time")[0]))
 						{
-						//	entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
-							
+									String s;
+									try {
+										s= row.getCell(columnIndices.get("Time")[0]).getDateCellValue().toString();
+										}
+										catch (Exception e) {
+											//date = formatter.parse(s);
+											s=row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
+										}
+										
+							entity.setDateTimeLocal(s);
 						}
 						if(null!=row.getCell(columnIndices.get("Value")[0]))
 						{
@@ -214,16 +232,15 @@ public class ExcelService {
 
 				}
 			}
-
+ 
 			inputStream.close();
+			return list;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally
-		{
-			return list;
-		}
+		return list;
+		
 
 	}
 

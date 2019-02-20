@@ -1,47 +1,78 @@
 package org.pstcl.sldc.scada.controller;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
 import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.ResponseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-@RepositoryRestController
+
+@RestController
 public class ScadaEntityController {
 
 	@Autowired
 	private  ScadaDataEntityRepository scadaDataEntityRepository;
 	
-	@GetMapping(value = "/scadadata") 
-    public @ResponseBody ResponseEntity<?> getScadaEntityList() {
-       // List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAll(new PageRequest(1, 100)).getContent(); 
-        //
-        // do some intermediate processing, logging, etc. with the producers
-        //
-		LocalDate date= LocalDate.of(2019,2, 3);   //		new Date(System.currentTimeMillis()-(1000*60*60*24*15));
-		
-		System.out.println(date);
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/dateS/{date}") 
+    public  List<ScadaDataEntity> findAllWithdateS(@PathVariable("date") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) {
         List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllWithdateS(date);
-        Resources<ScadaDataEntity> resources = new Resources<ScadaDataEntity>(scadaEntityList); 
-
-        resources.add(linkTo(methodOn(ScadaEntityController.class).getScadaEntityList()).withSelfRel()); 
-
-        // add other links as needed
-
-        return ResponseEntity.ok(resources); 
+        return scadaEntityList; 
     }
 
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/frequency/{limit}") 
+    public  List<ScadaDataEntity> findAllWithFrequency(@PathVariable("limit") int limit) {
+        List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllWithFrequency(limit);
+        return scadaEntityList;
+    }
 
-
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/drawal/{limit}") 
+	public  List<ScadaDataEntity> findAllDrawal(@PathVariable("limit") int limit) {
+        List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllDrawal(limit);
+        return scadaEntityList; 
+    }
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/schedule/{limit}") 
+    public  List<ScadaDataEntity> findAllSchedule(@PathVariable("limit") int limit) {
+        List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllSchedule(limit);
+            return scadaEntityList; 
+    }
+	
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/findAll/{limit}") 
+    public  List<ScadaDataEntity> findAllData(@PathVariable("limit") int limit) {
+        List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllWithFrequency(limit);
+        scadaEntityList.addAll(scadaDataEntityRepository.findAllDrawal(limit));
+        scadaEntityList.addAll(scadaDataEntityRepository.findAllSchedule(limit));
+        scadaEntityList.addAll(scadaDataEntityRepository.findAllOD_UD(limit));
+        scadaEntityList.addAll(scadaDataEntityRepository.findAllLoad(limit));
+            return scadaEntityList; 
+    }
+	
+	
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/od_ud/{limit}") 
+	public  List<ScadaDataEntity> findAllOD_UD(@PathVariable("limit") int limit) {
+        List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllOD_UD(limit);
+        return scadaEntityList;
+    }
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/load/{limit}") 
+	public  List<ScadaDataEntity> findAllLoad(@PathVariable("limit") int limit) {
+        List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllLoad(limit);
+       return scadaEntityList;
+       }
+	
 }
