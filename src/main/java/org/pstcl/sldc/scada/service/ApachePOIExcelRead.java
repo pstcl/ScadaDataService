@@ -2,6 +2,8 @@ package org.pstcl.sldc.scada.service;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.pstcl.sldc.scada.util.GlobalProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +13,7 @@ import java.util.Iterator;
 
 public class ApachePOIExcelRead {
 
+	
     private static final String FILE_NAME = "D:\\TEST_FILES_DOWNLOAD\\scadadata.xlsm";
 
     public static void main(String[] args) {

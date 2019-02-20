@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
 import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
+import org.pstcl.sldc.scada.util.GlobalProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -38,31 +40,34 @@ import org.springframework.util.FileCopyUtils;
 @Service
 public class ExcelService {
 
+	@Autowired
+	private GlobalProperties globalProperties;
+
 
 	@Autowired
 	ScadaDataEntityRepository repository;
 
 	@Scheduled(fixedRate = 2*60*1000)
 	public void scheduleFixedRateTask() {
-       
+
 		File fileToRead=getFileCopy();
 		List<ScadaDataEntity> list;
-		
+
 		list= readExcel(fileToRead);
 		repository.saveAll(list);
 		deleteFile(fileToRead);
-		
-		for (ScadaDataEntity scadaEntity : list) {
-			System.out.println(scadaEntity);
-		}
+
+		//		for (ScadaDataEntity scadaEntity : list) {
+		//			System.out.println(globalProperties.getFileLocation()+""+globalProperties.getFileName());
+		//			
+		//		}
 	}
 
-	private static final String FILE_NAME = "C:\\Eclipse\\scadadata.xlsm";
 
 	private File getFileCopy()
 	{
-		File originalFile=new File(FILE_NAME);
-		String tempDirectoryName = "C:\\Eclipse\\Temp\\" ;
+		File originalFile=new File(globalProperties.getFileLocation()+globalProperties.getFileName());
+		String tempDirectoryName = globalProperties.getTempDirName() ;
 
 		File tempDirectory = new File(tempDirectoryName);
 
@@ -136,8 +141,8 @@ public class ExcelService {
 					{
 
 						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
-						  
-						  map.put(cell.getRichStringCellValue().getString().trim(), array);
+
+						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
 					if (cell.getRichStringCellValue().getString().trim().equals("Value")) 
 					{
@@ -154,7 +159,7 @@ public class ExcelService {
 				}
 			}
 		}
-	return map;
+		return map;
 
 	}
 
@@ -207,16 +212,25 @@ public class ExcelService {
 						}
 						if(null!=row.getCell(columnIndices.get("Time")[0]))
 						{
-									String s;
-									try {
-										s= row.getCell(columnIndices.get("Time")[0]).getDateCellValue().toString();
-										}
-										catch (Exception e) {
-											//date = formatter.parse(s);
-											s=row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
-										}
-										
-							entity.setDateTimeLocal(s);
+							
+
+							entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
+//
+//
+////							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
+//
+//
+////							row.getCell(columnIndices.get("Time")[0]).setCellType(CellType.STRING);
+//							
+//							String dateString;
+//							try {
+//								dateString= row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
+//
+//							}
+//							catch (Exception e) {
+//								//date = formatter.parse(s);
+//								dateString=row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
+//							}
 						}
 						if(null!=row.getCell(columnIndices.get("Value")[0]))
 						{
@@ -232,7 +246,7 @@ public class ExcelService {
 
 				}
 			}
- 
+
 			inputStream.close();
 			return list;
 		}
@@ -240,12 +254,16 @@ public class ExcelService {
 			e.printStackTrace();
 		}
 		return list;
-		
+
 
 	}
 
 
 
-
+	public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDateTime();
+	}
 
 }
