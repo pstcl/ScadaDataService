@@ -23,6 +23,12 @@ import lombok.Data;
 @Table(name="scada_data_repo")
 public class ScadaDataEntity {
 
+	public ScadaEntityId getEntityId() {
+		return entityId;
+	}
+	public void setEntityId(ScadaEntityId entityId) {
+		this.entityId = entityId;
+	}
 	@JsonIgnore
 	@EmbeddedId
 	private ScadaEntityId entityId;

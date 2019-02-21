@@ -212,25 +212,27 @@ public class ExcelService {
 						}
 						if(null!=row.getCell(columnIndices.get("Time")[0]))
 						{
-							
 
-							entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
-//
-//
-////							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-//
-//
-////							row.getCell(columnIndices.get("Time")[0]).setCellType(CellType.STRING);
-//							
-//							String dateString;
-//							try {
-//								dateString= row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
-//
-//							}
-//							catch (Exception e) {
-//								//date = formatter.parse(s);
-//								dateString=row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
-//							}
+							if(row.getCell(columnIndices.get("Time")[0]).getCellType()==CellType.NUMERIC)
+							{
+								entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
+							}
+							//
+							//
+							////							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
+							//
+							//
+							////							row.getCell(columnIndices.get("Time")[0]).setCellType(CellType.STRING);
+							//							
+							//							String dateString;
+							//							try {
+							//								dateString= row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
+							//
+							//							}
+							//							catch (Exception e) {
+							//								//date = formatter.parse(s);
+							//								dateString=row.getCell(columnIndices.get("Time")[0]).getStringCellValue();
+							//							}
 						}
 						if(null!=row.getCell(columnIndices.get("Value")[0]))
 						{
@@ -261,9 +263,9 @@ public class ExcelService {
 
 
 	public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
-	    return dateToConvert.toInstant()
-	      .atZone(ZoneId.systemDefault())
-	      .toLocalDateTime();
+		return dateToConvert.toInstant()
+				.atZone(ZoneId.systemDefault())
+				.toLocalDateTime();
 	}
 
 }

@@ -20,11 +20,13 @@ public class GlobalProperties {
 	private String fileName;
 	//getters and setters
 
-	@Value("${temp.dir}")
+	@Value("${temp.dir}")//
 	private String tempDirName;
 	//getters and setters
 
-	
+
+
+
 	public String getFileLocation() {
 		return fileLocation;
 	}
