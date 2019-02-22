@@ -3,6 +3,7 @@ package org.pstcl.sldc.scada.model;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="scada_data_repo")
+@Table(name="scada_data_repo_demo")
 public class ScadaDataEntity {
 
 	public ScadaEntityId getEntityId() {
@@ -68,10 +69,10 @@ public class ScadaDataEntity {
 	public void setDateS(LocalDate dateS) {
 		this.entityId.setDateS(dateS);
 	}
-	public Time getTimeS() {
+	public LocalTime getTimeS() {
 		return this.entityId.getTimeS();
 	}
-	public void setTimeS(Time timeS) {
+	public void setTimeS(LocalTime timeS) {
 		this.entityId.setTimeS(timeS);
 	}
 	

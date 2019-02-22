@@ -3,6 +3,7 @@ package org.pstcl.sldc.scada.model;
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 
@@ -13,7 +14,7 @@ public class ScadaEntityId implements Serializable{
 	private String ddeItem;
 
 	private String pointID;
-	private Time timeS;
+	private LocalTime timeS;
 	
 	public LocalDate getDateS() {
 		return dateS;
@@ -23,9 +24,6 @@ public class ScadaEntityId implements Serializable{
 	}
 	public String getPointID() {
 		return pointID;
-	}
-	public Time getTimeS() {
-		return timeS;
 	}
 	
 
@@ -38,7 +36,10 @@ public class ScadaEntityId implements Serializable{
 	public void setPointID(String pointsID) {
 		this.pointID = pointsID;
 	}
-	public void setTimeS(Time timeS) {
+	public LocalTime getTimeS() {
+		return timeS;
+	}
+	public void setTimeS(LocalTime timeS) {
 		this.timeS = timeS;
 	}
 	

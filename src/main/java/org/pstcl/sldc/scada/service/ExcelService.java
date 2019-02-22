@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,13 +48,38 @@ public class ExcelService {
 	@Autowired
 	ScadaDataEntityRepository repository;
 
-	@Scheduled(fixedRate = 2*60*1000)
+	@Scheduled(fixedRate = 30*1000)
 	public void scheduleFixedRateTask() {
 
 		File fileToRead=getFileCopy();
 		List<ScadaDataEntity> list;
+		
+		
 
 		list= readExcel(fileToRead);
+		//REMOVE THIS BLOCK BELOW
+		//REMOVE THIS BLOCK BELOW
+		//REMOVE THIS BLOCK BELOW
+		//REMOVE THIS BLOCK BELOW
+		for (ScadaDataEntity entity : list) {
+			
+			DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			
+			Date dateS = new Date(System.currentTimeMillis());
+			LocalDateTime localDateTime =convertToLocalDateTimeViaInstant(dateS);
+		       
+			entity.setDateS(localDateTime.toLocalDate());
+
+			entity.setTimeS(localDateTime.toLocalTime());
+			double random=(Math.random()/10) + .95;
+			entity.setValue(entity.getValue().multiply(new BigDecimal(random)));
+		}
+		//REMOVE THIS BLOCK ABOVE
+
+		//REMOVE THIS BLOCK ABOVE
+
+		//REMOVE THIS BLOCK ABOVE
+		
 		repository.saveAll(list);
 		deleteFile(fileToRead);
 
@@ -207,8 +233,8 @@ public class ExcelService {
 						{
 
 							DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-							java.sql.Time timeValue = new java.sql.Time(formatter.parse(row.getCell(columnIndices.get("TimeS")[0]).getStringCellValue()).getTime());
-							entity.setTimeS(timeValue);
+							//java.sql.Time timeValue = new java.sql.Time(formatter.parse(row.getCell(columnIndices.get("TimeS")[0]).getStringCellValue()).getTime());
+							entity.setTimeS(LocalTime.parse(row.getCell(columnIndices.get("TimeS")[0]).getStringCellValue()));
 						}
 						if(null!=row.getCell(columnIndices.get("Time")[0]))
 						{

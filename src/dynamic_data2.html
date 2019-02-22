@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		packages : [ 'corechart', 'line' ]
+	});
+</script>
+</head>
+<body>
+	<div id="container" style="width: 550px; height: 400px; margin: 0 auto">
+	
+
+
+	<div id="chart_div"></div>
+	</div>
+	<span id="myClock"></span>
+
+		<script type="text/javascript">
+
+		function drawChart1() {
+
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'TimeS');
+			data.addColumn('number', 'Frequency(Hz)');
+			data.addColumn('number', 'Drawal(MW)');
+			data.addColumn('number', 'Schedule(MW)');
+			data.addColumn('number', 'OD/UD(MW)');
+			data.addColumn('number', 'Load(MW)');
+
+			drawChart2();
+			setInterval(drawChart2, 10000);
+			function drawChart2() {
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open('GET', "http://localhost:9091/scadadata/freq/1", true,
+						"user", "password");
+
+				xhr.withCredentials = true;
+				xhr.send();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var row = data.getNumberOfRows();
+						if (row > 5)
+							data.removeRows(0, row - 5);
+						row = data.getNumberOfRows();
+
+						var date = new Date();
+						var time = date.toLocaleTimeString();
+						var response = JSON.parse(xhr.responseText);
+						var i;
+						console.log(row, response[0], time);
+						data.addRows(1);
+						data.setCell(row, 0, time);
+						for (i = 1; i <= response.length; i = i + 1) {
+							console.log(row, response[i - 1]);
+							data.setCell(row, i, response[i - 1].value);
+						}
+
+						chart.draw(data, options);
+					}
+
+				}
+
+				//Create our data table out of JSON data loaded from server.
+
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.LineChart(document
+						.getElementById('chart_div'));
+				var options = {
+					'title' : 'Average Temperatures of Cities',
+					hAxis : {
+						title : 'Time'
+					},
+					vAxis : {
+						title : 'Value'
+					},
+					'width' : 600,
+					'height' : 600
+				}
+				chart.draw(data, options);
+			}
+		}
+
+		google.charts.setOnLoadCallback(drawChart1);
+	</script>
+
+</body>
+</html>
