@@ -1,3 +1,4 @@
+
 package org.pstcl.sldc.scada.security;
 
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .withUser("admin")
           .password("admin")
           .roles("USER", "ADMIN");
+    	
     }
 
     @Override
@@ -37,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .authenticated()
           .and()
           .httpBasic();
+      //  http.csrf().disable();
+       
+        
     }
 
 
