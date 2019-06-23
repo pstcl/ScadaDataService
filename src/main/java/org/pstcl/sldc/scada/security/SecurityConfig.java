@@ -13,36 +13,39 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	 @Override
+	    protected void configure(HttpSecurity http) throws Exception{
+	        http.authorizeRequests().antMatchers("/").permitAll();
+	    }
 	
-	
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	 PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    	auth
-          .inMemoryAuthentication()
-          .withUser("user")
-        //  .password("{noop}password")
-          .password(encoder.encode("password"))
-          .roles("USER")
-          .and()
-          .withUser("admin")
-          .password("admin")
-          .roles("USER", "ADMIN");
-    	
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//    	 PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    	auth
+//          .inMemoryAuthentication()
+//          .withUser("user")
+//        //  .password("{noop}password")
+//          .password(encoder.encode("password"))
+//          .roles("USER")
+//          .and()
+//          .withUser("admin")
+//          .password("admin")
+//          .roles("USER", "ADMIN");
+//    	
+//    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-          .authorizeRequests()
-          .anyRequest()
-          .authenticated()
-          .and()
-          .httpBasic();
-      //  http.csrf().disable();
-       
-        
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//          .authorizeRequests()
+//          .anyRequest()
+//          .authenticated()
+//          .and()
+//          .httpBasic();
+//      //  http.csrf().disable();
+//       
+//        
+//    }
 
 
 }

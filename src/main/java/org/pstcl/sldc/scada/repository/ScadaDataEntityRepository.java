@@ -1,5 +1,7 @@
 package org.pstcl.sldc.scada.repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
@@ -17,6 +19,7 @@ public interface ScadaDataEntityRepository extends PagingAndSortingRepository<Sc
 	@RestResource(exported = false)
 	@Query(value="SELECT obj from ScadaDataEntity obj where obj.entityId.ddeItem = :ddeItem ")
 	List<ScadaDataEntity> findByDdeItem(@Param("ddeItem") String ddeItem, Pageable pageable);
+	
 	
 	
 }

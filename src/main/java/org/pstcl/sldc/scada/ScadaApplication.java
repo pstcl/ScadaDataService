@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ScadaApplication {
 
 	public static void main(String[] args) {
-		
-		
 		SpringApplication.run(ScadaApplication.class, args);
 	}
 

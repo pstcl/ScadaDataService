@@ -2,9 +2,7 @@ package org.pstcl.sldc.scada.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.text.DateFormat;
@@ -14,24 +12,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.pstcl.sldc.scada.model.LatestDynamicData;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
 import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
+import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
 import org.pstcl.sldc.scada.util.GlobalProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -46,40 +42,105 @@ public class ExcelService {
 
 
 	@Autowired
+	private ExcelParameterNameProperties parameterNames;
+
+
+	@Autowired
 	ScadaDataEntityRepository repository;
+
+	public LatestDynamicData getLatestDynamicData() {
+		File fileToRead = null;
+		LatestDynamicData dynamicData=null;
+		try
+		{
+			dynamicData= new LatestDynamicData();
+			fileToRead=getFileCopy();
+			List<ScadaDataEntity> list= readExcel(fileToRead);
+
+			for (ScadaDataEntity scadaDataEntity : list) {
+
+				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getFrequencyParameterName()))
+				{
+					dynamicData.setFrequencyHz(scadaDataEntity.getValue());
+
+				}
+				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getDrawalParameterName()))
+				{
+					dynamicData.setDrawalMW(scadaDataEntity.getValue());
+
+				}
+				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getLoadParameterName()))
+				{
+					dynamicData.setLoadMW(scadaDataEntity.getValue());
+				}
+				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getScheduleParameterName()))
+				{
+					dynamicData.setScheduleMW(scadaDataEntity.getValue());
+				}
+				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getOdudParameterName()))
+				{
+					dynamicData.setOdUD(scadaDataEntity.getValue());
+					LocalDate localDate=scadaDataEntity.getDateS();
+					LocalTime localTime=scadaDataEntity.getTimeS();
+
+					LocalDateTime dateTime= LocalDateTime.of(localDate, localTime);
+
+					//				Date date = new Date(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth(),localTime.getHour(),localTime.getMinute(), localTime.getSecond());
+					dynamicData.setUpdateDate(dateTime);
+
+				}
+
+			}
+		}	
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			
+		}
+		finally
+		{
+			deleteFile(fileToRead);
+
+		}
+
+
+		deleteFile(fileToRead);
+		return dynamicData;
+	}
+
 
 	@Scheduled(fixedRate = 30*1000)
 	public void scheduleFixedRateTask() {
 
 		File fileToRead=getFileCopy();
 		List<ScadaDataEntity> list;
-		
-		
+
+
 
 		list= readExcel(fileToRead);
-		//REMOVE THIS BLOCK BELOW
-		//REMOVE THIS BLOCK BELOW
-		//REMOVE THIS BLOCK BELOW
-		//REMOVE THIS BLOCK BELOW
-		for (ScadaDataEntity entity : list) {
-			
-			DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			
-			Date dateS = new Date(System.currentTimeMillis());
-			LocalDateTime localDateTime =convertToLocalDateTimeViaInstant(dateS);
-		       
-			entity.setDateS(localDateTime.toLocalDate());
+		//		//REMOVE THIS BLOCK BELOW
+		//		//REMOVE THIS BLOCK BELOW
+		//		//REMOVE THIS BLOCK BELOW
+		//		//REMOVE THIS BLOCK BELOW
+		//		for (ScadaDataEntity entity : list) {
+		//			
+		//			DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		//			
+		//			Date dateS = new Date(System.currentTimeMillis());
+		//			LocalDateTime localDateTime =convertToLocalDateTimeViaInstant(dateS);
+		//		       
+		//			entity.setDateS(localDateTime.toLocalDate());
+		//
+		//			entity.setTimeS(localDateTime.toLocalTime());
+		//			double random=(Math.random()/10) + .95;
+		//			entity.setValue(entity.getValue().multiply(new BigDecimal(random)));
+		//		}
+		//		//REMOVE THIS BLOCK ABOVE
+		//
+		//		//REMOVE THIS BLOCK ABOVE
+		//
+		//		//REMOVE THIS BLOCK ABOVE
 
-			entity.setTimeS(localDateTime.toLocalTime());
-			double random=(Math.random()/10) + .95;
-			entity.setValue(entity.getValue().multiply(new BigDecimal(random)));
-		}
-		//REMOVE THIS BLOCK ABOVE
-
-		//REMOVE THIS BLOCK ABOVE
-
-		//REMOVE THIS BLOCK ABOVE
-		
 		repository.saveAll(list);
 		deleteFile(fileToRead);
 
@@ -293,5 +354,7 @@ public class ExcelService {
 				.atZone(ZoneId.systemDefault())
 				.toLocalDateTime();
 	}
+
+
 
 }

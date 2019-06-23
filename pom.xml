@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>org.pstcl.sldc</groupId>
 	<artifactId>scada</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.2</version>
 	<name>scada</name>
 	<description>Scada Data Rest Service</description>
 
