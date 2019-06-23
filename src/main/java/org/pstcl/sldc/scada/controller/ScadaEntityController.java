@@ -195,6 +195,7 @@ public class ScadaEntityController {
 		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getHaryana_loadParameterName(),getPageRequest(limit));
 		return scadaEntityList;
 	}
+	//testing src modification and ignore
 
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/Gvk1/{limit}") 
