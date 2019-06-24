@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.pstcl.sldc.scada.model.LatestDynamicData;
+import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel;
+import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel2;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
 import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
 import org.pstcl.sldc.scada.service.ExcelService;
+import org.pstcl.sldc.scada.service.LiveDataExcelService;
 import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
 import org.pstcl.sldc.scada.util.GlobalProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,8 @@ public class ScadaEntityController {
 	@Autowired
 	private ExcelService excelService;
 
+	@Autowired
+	private LiveDataExcelService liveDataExcelService;
 
 	private Pageable getPageRequest(int limit)
 	{
@@ -66,6 +71,22 @@ public class ScadaEntityController {
 		return latestDynamicData;
 	}
 
+//	@CrossOrigin(allowCredentials="true")
+//	@GetMapping(value = "/scadadata/pbGenData") 
+//	public  PunjabOwnGenerationModel pbGenData(HttpServletResponse response,HttpServletRequest request) {
+//		PunjabOwnGenerationModel generationModel=liveDataExcelService.getPunjabGenData();
+//		
+//		return generationModel;
+//	}
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/pbGenData2") 
+	public  PunjabOwnGenerationModel2 pbGenData2(HttpServletResponse response,HttpServletRequest request) {
+		PunjabOwnGenerationModel2 generationModel=liveDataExcelService.getPunjabGenData2();
+		
+		return generationModel;
+	}
+	
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/dynamicdata") 
 	public  LatestDynamicData dynamicdata(HttpServletResponse response,HttpServletRequest request) {
@@ -140,35 +161,7 @@ public class ScadaEntityController {
 	}
 
 
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/Htp1/{limit}") 
-	public  List<ScadaDataEntity> findAllWithHtp1(@PathVariable("limit") int limit) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getHtp1ParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/Htp2/{limit}") 
-	public  List<ScadaDataEntity> findAllWithHtp2(@PathVariable("limit") int limit) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getHtp2ParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/Htp3/{limit}") 
-	public  List<ScadaDataEntity> findAllWithHtp3(@PathVariable("limit") int limit) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getHtp3ParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/Htp4/{limit}") 
-	public  List<ScadaDataEntity> findAllWithHtp4(@PathVariable("limit") int limit) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getHtp4ParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
+	
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/Haryana_sch/{limit}") 
 	public  List<ScadaDataEntity> findAllWithHaryana_sch(@PathVariable("limit") int limit) {

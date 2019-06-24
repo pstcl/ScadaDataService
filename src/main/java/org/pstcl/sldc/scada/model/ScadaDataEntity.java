@@ -41,7 +41,12 @@ public class ScadaDataEntity {
 	
 	public LocalDateTime getChartDate()
 	{
-		return LocalDateTime.of(getDateS(), getTimeS());
+		LocalDateTime chartdate=null;
+		if(getDateS()!=null&& getTimeS()!=null)
+		{
+			chartdate=LocalDateTime.of(getDateS(), getTimeS());
+		}
+		return chartdate;
 	}
 	
 	@Column(precision=20,scale=10)

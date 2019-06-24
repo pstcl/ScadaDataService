@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.pstcl.sldc.scada.model.LatestDynamicData;
+import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
 import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
 import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
@@ -107,6 +108,8 @@ public class ExcelService {
 		deleteFile(fileToRead);
 		return dynamicData;
 	}
+	
+	
 
 
 	@Scheduled(fixedRate = 30*1000)

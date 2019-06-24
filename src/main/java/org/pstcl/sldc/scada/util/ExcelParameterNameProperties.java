@@ -13,8 +13,7 @@ public class ExcelParameterNameProperties {
 	@Autowired
 	private Environment environment;
 
-	@Value("${parameter.frequency}")
-	private String frequencyParameterName;
+	@Value("${parameter.frequency}")	private String frequencyParameterName;
 	@Value("${parameter.drawal}")
 	private String drawalParameterName;
 	@Value("${parameter.schedule}")
@@ -25,15 +24,6 @@ public class ExcelParameterNameProperties {
 	private String loadParameterName;
 	@Value("${parameter.currentTime}")
 	private String currentTimeParameterName;
-
-	@Value("${parameter.htp1}")
-	private String htp1ParameterName;
-	@Value("${parameter.htp2}")
-	private String htp2ParameterName;
-	@Value("${parameter.htp3}")
-	private String htp3ParameterName;
-	@Value("${parameter.htp4}")
-	private String htp4ParameterName;
 	@Value("${paramter.haryana_sch}")
 	private String haryana_schParameterName;
 	@Value("${paramter.haryana_drwl}")
@@ -46,70 +36,354 @@ public class ExcelParameterNameProperties {
 	private String gvk1ParameterName;
 	@Value("${parameter.gvk2}")
 	private String gvk2ParameterName;
-	@Value("${parameter.raj_sch")
+	@Value("${parameter.raj_sch}")
 	private String raj_schParameterName;
-	@Value("${parameter.raj_drwl")
+	@Value("${parameter.raj_drwl}")
 	private String raj_drwlParameterName;
-	@Value("${parameter.raj_odud")
+	@Value("${parameter.raj_odud}")
 	private String raj_odudParameterName;
-	@Value("${parameter.raj_load")
+	@Value("${parameter.raj_load}")
 	private String raj_loadParameterName;
-	@Value("${parameter.delhi_sch")
+	@Value("${parameter.delhi_sch}")
 	private String delhi_schParameterName;
-	@Value("${parameter.delhi_drwl")
+	@Value("${parameter.delhi_drwl}")
 	private String delhi_drwlParameterName;
-	@Value("${parameter.delhi_odud")
+	@Value("${parameter.delhi_odud}")
 	private String delhi_odudParameterName;
-	@Value("${parameter.delhi_load")
+	@Value("${parameter.delhi_load}")
 	private String delhi_loadParameterName;
-	@Value("${parameter.up_sch")
+	@Value("${parameter.up_sch}")
 	private String up_schParameterName;
-	@Value("${parameter.up_drwl")
+	@Value("${parameter.up_drwl}")
 	private String up_drwlParameterName;
-	@Value("${parameter.up_odud")
+	@Value("${parameter.up_odud}")
 	private String up_odudParameterName;
-	@Value("${parameter.up_load")
+	@Value("${parameter.up_load}")
 	private String up_loadParameterName;
-	@Value("${parameter.uk_sch")
+	@Value("${parameter.uk_sch}")
 	private String uk_schParameterName;
-	@Value("${parameter.uk_drwl")
+	@Value("${parameter.uk_drwl}")
 	private String uk_drwlParameterName;
-	@Value("${parameter.uk_odud")
+	@Value("${parameter.uk_odud}")
 	private String uk_odudParameterName;
-	@Value("${parameter.uk_load")
+	@Value("${parameter.uk_load}")
 	private String uk_loadParameterName;
-	@Value("${parameter.chd_sch")
+	@Value("${parameter.chd_sch}")
 	private String chd_schParameterName;
-	@Value("${parameter.chd_drwl")
+	@Value("${parameter.chd_drwl}")
 	private String chd_drwlParameterName;
-	@Value("${parameter.chd_odud")
+	@Value("${parameter.chd_odud}")
 	private String chd_odudParameterName;
-	@Value("${parameter.hp_sch")
+	@Value("${parameter.hp_sch}")
 	private String hp_schParameterName;
-	@Value("${parameter.hp_drwl")
+	@Value("${parameter.hp_drwl}")
 	private String hp_drwlParameterName;
-	@Value("${parameter.hp_odud")
+	@Value("${parameter.hp_odud}")
 	private String hp_odudParameterName;
-	@Value("${parameter.hp_load")
+	@Value("${parameter.hp_load}")
 	private String hp_loadParameterName;
-	@Value("${parameter.jk_sch")
+	@Value("${parameter.jk_sch}")
 	private String jk_schParameterName;
-	@Value("${parameter.jk_drwl")
+	@Value("${parameter.jk_drwl}")
 	private String jk_drwlParameterName;
-	@Value("${parameter.jk_odud")
+	@Value("${parameter.jk_odud}")
 	private String jk_odudParameterName;
-	@Value("${parameter.jk_load")
+	@Value("${parameter.jk_load}")
 	private String jk_loadParameterName;
-	@Value("${parameter.npl1")
-	private String npl1ParameterName;
-	@Value("${parameter.npl2")
-	private String npl2ParameterName;
-	@Value("${parameter.tldtp1")
-	private String tldtp1ParameterName;
-	@Value("${parameter.tldtp2")
-	private String tldtp2ParameterName;
-	@Value("${parameter.tldtp3")
-	private String tldtp3ParameterName;
+
+	@Value("${parameter.ashp1}")	private String 		ashp1ParameterName	;
+	@Value("${parameter.ashp2}")	private String 		ashp2ParameterName	;
+	@Value("${parameter.ggsstp1}")	private String 		ggsstp1ParameterName	;
+	@Value("${parameter.ggsstp2}")	private String 		ggsstp2ParameterName	;
+	@Value("${parameter.ggsstp3}")	private String 		ggsstp3ParameterName	;
+	@Value("${parameter.ggsstp4}")	private String 		ggsstp4ParameterName	;
+	@Value("${parameter.ggsstp5}")	private String 		ggsstp5ParameterName	;
+	@Value("${parameter.ggsstp6}")	private String 		ggsstp6ParameterName	;
+	@Value("${parameter.ghtp1}")	private String 		ghtp1ParameterName	;
+	@Value("${parameter.ghtp2}")	private String 		ghtp2ParameterName	;
+	@Value("${parameter.ghtp3}")	private String 		ghtp3ParameterName	;
+	@Value("${parameter.ghtp4}")	private String 		ghtp4ParameterName	;
+	@Value("${parameter.gndtp1}")	private String 		gndtp1ParameterName	;
+	@Value("${parameter.gndtp2}")	private String 		gndtp2ParameterName	;
+	@Value("${parameter.gndtp3}")	private String 		gndtp3ParameterName	;
+	@Value("${parameter.gndtp4}")	private String 		gndtp4ParameterName	;
+	@Value("${parameter.mph}")	private String 		mphParameterName	;
+	@Value("${parameter.npl1}")	private String 		npl1ParameterName	;
+	@Value("${parameter.npl2}")	private String 		npl2ParameterName	;
+	@Value("${parameter.rsd1}")	private String 		rsd1ParameterName	;
+	@Value("${parameter.rsd2}")	private String 		rsd2ParameterName	;
+	@Value("${parameter.rsd3}")	private String 		rsd3ParameterName	;
+	@Value("${parameter.rsd4}")	private String 		rsd4ParameterName	;
+	//	@Value("${parameter.joginder1}")	private String 		joginder1ParameterName	;
+	//	@Value("${parameter.joginder2}")	private String 		joginder2ParameterName	;
+	//	@Value("${parameter.joginder3}")	private String 		joginder3ParameterName	;
+	//	@Value("${parameter.joginder4}")	private String 		joginder4ParameterName	;
+	//	@Value("${parameter.joginder5}")	private String 		joginder5ParameterName	;
+	//	@Value("${parameter.joginder6}")	private String 		joginder6ParameterName	;
+	@Value("${parameter.tldtp1}")	private String 		tldtp1ParameterName	;
+	@Value("${parameter.tldtp2}")	private String 		tldtp2ParameterName	;
+	@Value("${parameter.tldtp3}")	private String 		tldtp3ParameterName	;
+	@Value("${parameter.ubdc}")	private String 		ubdcParameterName	;
+
+
+	@Value("${parameter.shanan}")	private String 		shananParameterName	;
+
+
+	@Value("${parameter.RES.Generation}")	private String 		totalResGenParameter;
+	@Value("${parameter.Solar.Generation}")	private String 		totalSOLARGenerationParameter;
+	@Value("${parameter.Non.Solar.Generation}")	private String 		totalNonSOLARGenerationParameter;
+
+
+
+
+	public String getShananParameterName() {
+		return shananParameterName;
+	}
+
+	public void setShananParameterName(String shananParameterName) {
+		this.shananParameterName = shananParameterName;
+	}
+
+	public String getAshp1ParameterName() {
+		return ashp1ParameterName;
+	}
+
+	public void setAshp1ParameterName(String ashp1ParameterName) {
+		this.ashp1ParameterName = ashp1ParameterName;
+	}
+
+	public String getAshp2ParameterName() {
+		return ashp2ParameterName;
+	}
+
+	public void setAshp2ParameterName(String ashp2ParameterName) {
+		this.ashp2ParameterName = ashp2ParameterName;
+	}
+
+	public String getGgsstp1ParameterName() {
+		return ggsstp1ParameterName;
+	}
+
+	public void setGgsstp1ParameterName(String ggsstp1ParameterName) {
+		this.ggsstp1ParameterName = ggsstp1ParameterName;
+	}
+
+	public String getGgsstp2ParameterName() {
+		return ggsstp2ParameterName;
+	}
+
+	public void setGgsstp2ParameterName(String ggsstp2ParameterName) {
+		this.ggsstp2ParameterName = ggsstp2ParameterName;
+	}
+
+	public String getGgsstp3ParameterName() {
+		return ggsstp3ParameterName;
+	}
+
+	public void setGgsstp3ParameterName(String ggsstp3ParameterName) {
+		this.ggsstp3ParameterName = ggsstp3ParameterName;
+	}
+
+	public String getGgsstp4ParameterName() {
+		return ggsstp4ParameterName;
+	}
+
+	public void setGgsstp4ParameterName(String ggsstp4ParameterName) {
+		this.ggsstp4ParameterName = ggsstp4ParameterName;
+	}
+
+	public String getGgsstp5ParameterName() {
+		return ggsstp5ParameterName;
+	}
+
+	public void setGgsstp5ParameterName(String ggsstp5ParameterName) {
+		this.ggsstp5ParameterName = ggsstp5ParameterName;
+	}
+
+	public String getGgsstp6ParameterName() {
+		return ggsstp6ParameterName;
+	}
+
+	public void setGgsstp6ParameterName(String ggsstp6ParameterName) {
+		this.ggsstp6ParameterName = ggsstp6ParameterName;
+	}
+
+	public String getGhtp1ParameterName() {
+		return ghtp1ParameterName;
+	}
+
+	public void setGhtp1ParameterName(String ghtp1ParameterName) {
+		this.ghtp1ParameterName = ghtp1ParameterName;
+	}
+
+	public String getGhtp2ParameterName() {
+		return ghtp2ParameterName;
+	}
+
+	public void setGhtp2ParameterName(String ghtp2ParameterName) {
+		this.ghtp2ParameterName = ghtp2ParameterName;
+	}
+
+	public String getGhtp3ParameterName() {
+		return ghtp3ParameterName;
+	}
+
+	public void setGhtp3ParameterName(String ghtp3ParameterName) {
+		this.ghtp3ParameterName = ghtp3ParameterName;
+	}
+
+	public String getGhtp4ParameterName() {
+		return ghtp4ParameterName;
+	}
+
+	public void setGhtp4ParameterName(String ghtp4ParameterName) {
+		this.ghtp4ParameterName = ghtp4ParameterName;
+	}
+
+	public String getGndtp1ParameterName() {
+		return gndtp1ParameterName;
+	}
+
+	public void setGndtp1ParameterName(String gndtp1ParameterName) {
+		this.gndtp1ParameterName = gndtp1ParameterName;
+	}
+
+	public String getGndtp2ParameterName() {
+		return gndtp2ParameterName;
+	}
+
+	public String getTotalResGenParameter() {
+		return totalResGenParameter;
+	}
+
+	public void setTotalResGenParameter(String totalResGenParameter) {
+		this.totalResGenParameter = totalResGenParameter;
+	}
+
+	public String getTotalSOLARGenerationParameter() {
+		return totalSOLARGenerationParameter;
+	}
+
+	public void setTotalSOLARGenerationParameter(String totalSOLARGenerationParameter) {
+		this.totalSOLARGenerationParameter = totalSOLARGenerationParameter;
+	}
+
+	public String getTotalNonSOLARGenerationParameter() {
+		return totalNonSOLARGenerationParameter;
+	}
+
+	public void setTotalNonSOLARGenerationParameter(String totalNonSOLARGenerationParameter) {
+		this.totalNonSOLARGenerationParameter = totalNonSOLARGenerationParameter;
+	}
+
+	public void setGndtp2ParameterName(String gndtp2ParameterName) {
+		this.gndtp2ParameterName = gndtp2ParameterName;
+	}
+
+	public String getGndtp3ParameterName() {
+		return gndtp3ParameterName;
+	}
+
+	public void setGndtp3ParameterName(String gndtp3ParameterName) {
+		this.gndtp3ParameterName = gndtp3ParameterName;
+	}
+
+	public String getGndtp4ParameterName() {
+		return gndtp4ParameterName;
+	}
+
+	public void setGndtp4ParameterName(String gndtp4ParameterName) {
+		this.gndtp4ParameterName = gndtp4ParameterName;
+	}
+
+	public String getMphParameterName() {
+		return mphParameterName;
+	}
+
+	public void setMphParameterName(String mphParameterName) {
+		this.mphParameterName = mphParameterName;
+	}
+
+	public String getNpl1ParameterName() {
+		return npl1ParameterName;
+	}
+
+	public void setNpl1ParameterName(String npl1ParameterName) {
+		this.npl1ParameterName = npl1ParameterName;
+	}
+
+	public String getNpl2ParameterName() {
+		return npl2ParameterName;
+	}
+
+	public void setNpl2ParameterName(String npl2ParameterName) {
+		this.npl2ParameterName = npl2ParameterName;
+	}
+
+	public String getRsd1ParameterName() {
+		return rsd1ParameterName;
+	}
+
+	public void setRsd1ParameterName(String rsd1ParameterName) {
+		this.rsd1ParameterName = rsd1ParameterName;
+	}
+
+	public String getRsd2ParameterName() {
+		return rsd2ParameterName;
+	}
+
+	public void setRsd2ParameterName(String rsd2ParameterName) {
+		this.rsd2ParameterName = rsd2ParameterName;
+	}
+
+	public String getRsd3ParameterName() {
+		return rsd3ParameterName;
+	}
+
+	public void setRsd3ParameterName(String rsd3ParameterName) {
+		this.rsd3ParameterName = rsd3ParameterName;
+	}
+
+	public String getRsd4ParameterName() {
+		return rsd4ParameterName;
+	}
+
+	public void setRsd4ParameterName(String rsd4ParameterName) {
+		this.rsd4ParameterName = rsd4ParameterName;
+	}
+
+
+	public String getTldtp1ParameterName() {
+		return tldtp1ParameterName;
+	}
+
+	public void setTldtp1ParameterName(String tldtp1ParameterName) {
+		this.tldtp1ParameterName = tldtp1ParameterName;
+	}
+
+	public String getTldtp2ParameterName() {
+		return tldtp2ParameterName;
+	}
+
+	public void setTldtp2ParameterName(String tldtp2ParameterName) {
+		this.tldtp2ParameterName = tldtp2ParameterName;
+	}
+
+	public String getTldtp3ParameterName() {
+		return tldtp3ParameterName;
+	}
+
+	public void setTldtp3ParameterName(String tldtp3ParameterName) {
+		this.tldtp3ParameterName = tldtp3ParameterName;
+	}
+
+	public String getUbdcParameterName() {
+		return ubdcParameterName;
+	}
+
+	public void setUbdcParameterName(String ubdcParameterName) {
+		this.ubdcParameterName = ubdcParameterName;
+	}
 
 	public String getFrequencyParameterName() {
 		return frequencyParameterName;
@@ -167,37 +441,7 @@ public class ExcelParameterNameProperties {
 		this.environment = environment;
 	}
 
-	public String getHtp1ParameterName() {
-		return htp1ParameterName;
-	}
 
-	public void setHtp1ParameterName(String htp1ParameterName) {
-		this.htp1ParameterName = htp1ParameterName;
-	}
-
-	public String getHtp2ParameterName() {
-		return htp2ParameterName;
-	}
-
-	public void setHtp2ParameterName(String htp2ParameterName) {
-		this.htp2ParameterName = htp2ParameterName;
-	}
-
-	public String getHtp3ParameterName() {
-		return htp3ParameterName;
-	}
-
-	public void setHtp3ParameterName(String htp3ParameterName) {
-		this.htp3ParameterName = htp3ParameterName;
-	}
-
-	public String getHtp4ParameterName() {
-		return htp4ParameterName;
-	}
-
-	public void setHtp4ParameterName(String htp4ParameterName) {
-		this.htp4ParameterName = htp4ParameterName;
-	}
 
 	public String getHaryana_schParameterName() {
 		return haryana_schParameterName;
@@ -463,44 +707,5 @@ public class ExcelParameterNameProperties {
 		this.jk_loadParameterName = jk_loadParameterName;
 	}
 
-	public String getNpl1ParameterName() {
-		return npl1ParameterName;
-	}
-
-	public void setNpl1ParameterName(String npl1ParameterName) {
-		this.npl1ParameterName = npl1ParameterName;
-	}
-
-	public String getNpl2ParameterName() {
-		return npl2ParameterName;
-	}
-
-	public void setNpl2ParameterName(String npl2ParameterName) {
-		this.npl2ParameterName = npl2ParameterName;
-	}
-
-	public String getTldtp1ParameterName() {
-		return tldtp1ParameterName;
-	}
-
-	public void setTldtp1ParameterName(String tldtp1ParameterName) {
-		this.tldtp1ParameterName = tldtp1ParameterName;
-	}
-
-	public String getTldtp2ParameterName() {
-		return tldtp2ParameterName;
-	}
-
-	public void setTldtp2ParameterName(String tldtp2ParameterName) {
-		this.tldtp2ParameterName = tldtp2ParameterName;
-	}
-
-	public String getTldtp3ParameterName() {
-		return tldtp3ParameterName;
-	}
-
-	public void setTldtp3ParameterName(String tldtp3ParameterName) {
-		this.tldtp3ParameterName = tldtp3ParameterName;
-	}
 
 }
