@@ -3,6 +3,7 @@ package org.pstcl.sldc.scada.model;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -37,6 +38,11 @@ public class ScadaDataEntity {
 
 	@DateTimeFormat(pattern="yyyy-dd-MM HH:mm:ss")
 	private Date dateTimeWrongFormat;
+	
+	public LocalDateTime getChartDate()
+	{
+		return LocalDateTime.of(getDateS(), getTimeS());
+	}
 	
 	@Column(precision=20,scale=10)
 	private BigDecimal value;
