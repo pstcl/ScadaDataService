@@ -6,7 +6,7 @@ public class PunjabOwnGenerationModel2 {
 
 
 
-	private ScadaDataEntity grossGeneration;
+	private ScadaDataJsonPojo grossGeneration;
 
 
 
@@ -88,6 +88,9 @@ public class PunjabOwnGenerationModel2 {
 	private ScadaDataEntity thermalGHTPLehraMohabbat5;
 
 	private ScadaDataEntity thermalGHTPLehraMohabbat6;
+	
+	//totalGGSSTPRopar totalGHTPLehraMohabbat totalRSD totalIppRajpura totalIppTalwandiSabo totalIppGVK
+	
 
 	private ScadaDataEntity totalGGSSTPRopar;
 
@@ -123,7 +126,7 @@ public class PunjabOwnGenerationModel2 {
 
 
 	public void calculateGrossGeneration() {
-		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		ScadaDataJsonPojo dataEntity=new ScadaDataJsonPojo();
 		dataEntity.setValue(BigDecimal.ZERO);
 		if(null!=this.getTotalResGeneration())
 		dataEntity.setValue(dataEntity.getValue().add(this.getTotalResGeneration().getValue()));
@@ -491,7 +494,7 @@ public class PunjabOwnGenerationModel2 {
 		return totalThermal;
 	}
 
-	public void setGrossGeneration(ScadaDataEntity grossGeneration) {
+	public void setGrossGeneration(ScadaDataJsonPojo grossGeneration) {
 		this.grossGeneration = grossGeneration;
 	}
 

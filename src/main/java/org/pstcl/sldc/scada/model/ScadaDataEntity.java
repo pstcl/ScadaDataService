@@ -1,6 +1,7 @@
 package org.pstcl.sldc.scada.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -49,7 +50,7 @@ public class ScadaDataEntity {
 		return chartdate;
 	}
 	
-	@Column(precision=20,scale=10)
+	@Column(precision=20,scale=2)
 	private BigDecimal value;
 	
 	private String flag;
@@ -88,7 +89,8 @@ public class ScadaDataEntity {
 	}
 	
 	public BigDecimal getValue() {
-		return value;
+		return value.setScale(0,RoundingMode.HALF_UP);
+		
 	}
 	public void setValue(BigDecimal value) {
 		this.value = value;
