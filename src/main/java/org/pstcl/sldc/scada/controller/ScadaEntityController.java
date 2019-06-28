@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.pstcl.sldc.scada.model.LatestDynamicData;
+import org.pstcl.sldc.scada.model.NRGeneration;
 import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel;
 import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel2;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
@@ -85,6 +86,13 @@ public class ScadaEntityController {
 		PunjabOwnGenerationModel2 generationModel=liveDataExcelService.getPunjabGenData2();
 		
 		return generationModel;
+	}
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/scadadata/nrGenData") 
+	public  NRGeneration nrGenData(HttpServletResponse response,HttpServletRequest request) {
+		NRGeneration nrGenDataModel=liveDataExcelService.getNRGeneration();
+		return nrGenDataModel;
 	}
 	
 	@CrossOrigin(allowCredentials="true")

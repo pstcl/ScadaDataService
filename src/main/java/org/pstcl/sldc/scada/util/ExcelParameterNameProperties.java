@@ -74,6 +74,13 @@ public class ExcelParameterNameProperties {
 	private String chd_drwlParameterName;
 	@Value("${parameter.chd_odud}")
 	private String chd_odudParameterName;
+	
+	
+	@Value("${parameter.chd_load}")
+	private String chd_loadParameterName;
+	
+	
+	
 	@Value("${parameter.hp_sch}")
 	private String hp_schParameterName;
 	@Value("${parameter.hp_drwl}")
@@ -91,6 +98,9 @@ public class ExcelParameterNameProperties {
 	@Value("${parameter.jk_load}")
 	private String jk_loadParameterName;
 
+	
+	
+	
 	@Value("${parameter.ashp1}")	private String 		ashp1ParameterName	;
 	@Value("${parameter.ashp2}")	private String 		ashp2ParameterName	;
 	@Value("${parameter.ggsstp1}")	private String 		ggsstp1ParameterName	;
@@ -705,6 +715,11 @@ public class ExcelParameterNameProperties {
 
 	public void setJk_loadParameterName(String jk_loadParameterName) {
 		this.jk_loadParameterName = jk_loadParameterName;
+	}
+
+	public String getChd_loadParameterName() {
+		// TODO Auto-generated method stub
+		return chd_loadParameterName;
 	}
 
 
