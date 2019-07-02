@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -44,10 +45,37 @@ import org.springframework.util.FileCopyUtils;
 @Service
 public class ExcelService {
 
-	public List<ScadaDataEntity> getOdudList() {
+	
+	public Set<ScadaDataEntity> getOdudList() {
 		return odudList;
 	}
-
+	public void setOdudList(Set<ScadaDataEntity> odudList) {
+		this.odudList = odudList;
+	}
+	public Set<ScadaDataEntity> getLoadList() {
+		return loadList;
+	}
+	public void setLoadList(Set<ScadaDataEntity> loadList) {
+		this.loadList = loadList;
+	}
+	public Set<ScadaDataEntity> getScheduleList() {
+		return scheduleList;
+	}
+	public void setScheduleList(Set<ScadaDataEntity> scheduleList) {
+		this.scheduleList = scheduleList;
+	}
+	public Set<ScadaDataEntity> getDrawalList() {
+		return drawalList;
+	}
+	public void setDrawalList(Set<ScadaDataEntity> drawalList) {
+		this.drawalList = drawalList;
+	}
+	public Set<ScadaDataEntity> getFrequencyList() {
+		return frequencyList;
+	}
+	public void setFrequencyList(Set<ScadaDataEntity> frequencyList) {
+		this.frequencyList = frequencyList;
+	}
 	private Pageable getPageRequest(int limit) {
 		Pageable pageRequest = PageRequest.of(0, limit,
 				Sort.by("entityId.dateS").descending().and(Sort.by("entityId.timeS").descending()));
@@ -66,88 +94,29 @@ public class ExcelService {
 
 
 
-	public void setOdudList(List<ScadaDataEntity> odudList) {
-		this.odudList = odudList;
-	}
-
-
-
-
-	public List<ScadaDataEntity> getLoadList() {
-		return loadList;
-	}
-
-
-
-
-	public void setLoadList(List<ScadaDataEntity> loadList) {
-		this.loadList = loadList;
-	}
-
-
-
-
-	public List<ScadaDataEntity> getScheduleList() {
-		return scheduleList;
-	}
-
-
-
-
-	public void setScheduleList(List<ScadaDataEntity> scheduleList) {
-		this.scheduleList = scheduleList;
-	}
-
-
-
-
-	public List<ScadaDataEntity> getDrawalList() {
-		return drawalList;
-	}
-
-
-
-
-	public void setDrawalList(List<ScadaDataEntity> drawalList) {
-		this.drawalList = drawalList;
-	}
-
-
-
-
-	public List<ScadaDataEntity> getFrequencyList() {
-		return frequencyList;
-	}
-
-
-
-
-	public void setFrequencyList(List<ScadaDataEntity> frequencyList) {
-		this.frequencyList = frequencyList;
-	}
 
 
 
 
 	@Autowired
 	@Qualifier("odudList")
-	protected List<ScadaDataEntity> odudList;
+	protected Set<ScadaDataEntity> odudList;
 
 	@Autowired
 	@Qualifier("loadList")
-	protected List<ScadaDataEntity> loadList;
+	protected Set<ScadaDataEntity> loadList;
 
 	@Autowired
 	@Qualifier("scheduleList")
-	protected List<ScadaDataEntity> scheduleList;
+	protected Set<ScadaDataEntity> scheduleList;
 
 	@Autowired
 	@Qualifier("drawalList")
-	protected List<ScadaDataEntity> drawalList;
+	protected Set<ScadaDataEntity> drawalList;
 
 	@Autowired
 	@Qualifier("frequencyList")
-	protected List<ScadaDataEntity> frequencyList;
+	protected Set<ScadaDataEntity> frequencyList;
 
 
 

@@ -1,6 +1,7 @@
 package org.pstcl.sldc.scada.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,8 +48,8 @@ public class AsyncController {
 
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/frequency/{limit}") 
-	public  List<ScadaDataEntity> findAllWithFrequency(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
-		//List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getFrequencyParameterName(),getPageRequest(limit));
+	public  Set<ScadaDataEntity> findAllWithFrequency(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
+		//Set<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getFrequencyParameterName(),getPageRequest(limit));
 		//return scadaEntityList;
 		
 		return excelService.getFrequencyList();
@@ -56,8 +57,8 @@ public class AsyncController {
 
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/drawal/{limit}") 
-	public  List<ScadaDataEntity> findAllDrawal(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
-//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getDrawalParameterName(),getPageRequest(limit));
+	public  Set<ScadaDataEntity> findAllDrawal(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
+//		Set<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getDrawalParameterName(),getPageRequest(limit));
 //		return scadaEntityList;
 		
 		return excelService.getDrawalList();
@@ -65,8 +66,8 @@ public class AsyncController {
 
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/schedule/{limit}") 
-	public  List<ScadaDataEntity> findAllSchedule(@PathVariable("limit") int limit) {
-//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getScheduleParameterName(),getPageRequest(limit));
+	public  Set<ScadaDataEntity> findAllSchedule(@PathVariable("limit") int limit) {
+//		Set<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getScheduleParameterName(),getPageRequest(limit));
 //		return scadaEntityList;
 		
 		return excelService.getScheduleList();
@@ -76,8 +77,8 @@ public class AsyncController {
 
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/scadadata/od_ud/{limit}") 
-	public  List<ScadaDataEntity> findAllOD_UD(@PathVariable("limit") int limit) {
-//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getOdudParameterName(),getPageRequest(limit));
+	public  Set<ScadaDataEntity> findAllOD_UD(@PathVariable("limit") int limit) {
+//		Set<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getOdudParameterName(),getPageRequest(limit));
 //		return scadaEntityList;
 		
 		return excelService.getOdudList();
@@ -87,21 +88,21 @@ public class AsyncController {
 	
 //	@CrossOrigin(allowCredentials="true")
 //	@GetMapping(value = "/scadadata/frequency/{limit}") 
-//	public  List<ScadaDataEntity> findAllWithFrequency(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
-//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getFrequencyParameterName(),getPageRequest(limit));
+//	public  Set<ScadaDataEntity> findAllWithFrequency(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
+//		Set<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getFrequencyParameterName(),getPageRequest(limit));
 //		return scadaEntityList;
 //	}
 //
 //	@CrossOrigin(allowCredentials="true")
 //	@GetMapping(value = "/scadadata/drawal/{limit}") 
-//	public  List<ScadaDataEntity> findAllDrawal(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
-//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getDrawalParameterName(),getPageRequest(limit));
+//	public  Set<ScadaDataEntity> findAllDrawal(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
+//		Set<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getDrawalParameterName(),getPageRequest(limit));
 //		return scadaEntityList;
 //	}
 //
 //	@CrossOrigin(allowCredentials="true")
 //	@GetMapping(value = "/scadadata/schedule/{limit}") 
-//	public  List<ScadaDataEntity> findAllSchedule(@PathVariable("limit") int limit) {
+//	public  Set<ScadaDataEntity> findAllSchedule(@PathVariable("limit") int limit) {
 //		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getScheduleParameterName(),getPageRequest(limit));
 //		return scadaEntityList;
 //	}

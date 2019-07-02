@@ -1,7 +1,7 @@
 package org.pstcl.sldc.scada;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
 import org.springframework.context.annotation.Bean;
@@ -11,28 +11,28 @@ import org.springframework.context.annotation.Configuration;
 public class InMemoryStoreConfig {
 
 	@Bean(name = "odudList")
-	public List<ScadaDataEntity> odudList() {
-		return new ArrayList<ScadaDataEntity>();
+	public Set<ScadaDataEntity> odudList() {
+		return new LinkedHashSet<ScadaDataEntity>();
 	}
 
 	@Bean(name = "loadList")
-	public List<ScadaDataEntity> loadList() {
-		return new ArrayList<ScadaDataEntity>();
+	public Set<ScadaDataEntity> loadList() {
+		return new LinkedHashSet<ScadaDataEntity>();
 	}
 
 	@Bean(name = "scheduleList")
-	public List<ScadaDataEntity> scheduleList() {
-		return new ArrayList<ScadaDataEntity>();
+	public Set<ScadaDataEntity> scheduleList() {
+		return new LinkedHashSet<ScadaDataEntity>();
 	}
 
 	@Bean(name = "drawalList")
-	public List<ScadaDataEntity> drawalList() {
-		return new ArrayList<ScadaDataEntity>();
+	public Set<ScadaDataEntity> drawalList() {
+		return new LinkedHashSet<ScadaDataEntity>();
 	}
 
 	@Bean(name = "frequencyList")
-	public List<ScadaDataEntity> frequencyList() {
-		return new ArrayList<ScadaDataEntity>();
+	public Set<ScadaDataEntity> frequencyList() {
+		return new LinkedHashSet<ScadaDataEntity>();
 	}
 
 }
