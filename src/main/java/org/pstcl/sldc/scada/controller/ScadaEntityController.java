@@ -106,67 +106,7 @@ public class ScadaEntityController {
 		return latestDynamicData;
 	}
 
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/freq/{limit}") 
-	public  List<ScadaDataEntity> findAllWithFreq(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
 
-
-		//		response.setHeader("Access-Control-Allow-Origin", "*");
-		//		response.setHeader("Access-Control-Allow-Credentials", "true");
-		//		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-		//		response.setHeader("Access-Control-Max-Age", "3600");
-		//		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-		//
-
-
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getFrequencyParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/frequency/{limit}") 
-	public  List<ScadaDataEntity> findAllWithFrequency(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getFrequencyParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/drawal/{limit}") 
-	public  List<ScadaDataEntity> findAllDrawal(@PathVariable("limit") int limit,HttpServletResponse response,HttpServletRequest request) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getDrawalParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/schedule/{limit}") 
-	public  List<ScadaDataEntity> findAllSchedule(@PathVariable("limit") int limit) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getScheduleParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
-
-
-
-
-	//	@CrossOrigin(allowCredentials="true")
-	//	@GetMapping(value = "/scadadata/findAll/{limit}") 
-	//	public  List<ScadaDataEntity> findAllData(@PathVariable("limit") int limit) {
-	//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllWithFrequency(limit);
-	//		scadaEntityList.addAll(scadaDataEntityRepository.findAllDrawal(limit));
-	//		scadaEntityList.addAll(scadaDataEntityRepository.findAllSchedule(limit));
-	//		scadaEntityList.addAll(scadaDataEntityRepository.findAllOD_UD(limit));
-	//		scadaEntityList.addAll(scadaDataEntityRepository.findAllLoad(limit));
-	//		return scadaEntityList; 
-	//	}
-
-
-
-	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/scadadata/od_ud/{limit}") 
-	public  List<ScadaDataEntity> findAllOD_UD(@PathVariable("limit") int limit) {
-		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findByDdeItem (parameterNames.getOdudParameterName(),getPageRequest(limit));
-		return scadaEntityList;
-	}
 
 
 	
@@ -416,12 +356,6 @@ public class ScadaEntityController {
 
 
 
-	//	@CrossOrigin(allowCredentials="true")
-	//	@GetMapping(value = "/scadadata/dateS/{date}") 
-	//	public  List<ScadaDataEntity> findAllWithdateS(@PathVariable("date") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) {
-	//		List<ScadaDataEntity> scadaEntityList = scadaDataEntityRepository.findAllWithdateS(date);
-	//		return scadaEntityList; 
-	//	}
 
 
 }

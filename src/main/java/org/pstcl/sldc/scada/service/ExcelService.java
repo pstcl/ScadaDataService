@@ -25,18 +25,131 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.pstcl.sldc.scada.model.LatestDynamicData;
-import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
+import org.pstcl.sldc.scada.model.ScadaDataHolder;
+import org.pstcl.sldc.scada.model.ScadaMap;
+import org.pstcl.sldc.scada.repository.ScadaBulkRepository;
 import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
 import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
 import org.pstcl.sldc.scada.util.GlobalProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
 @Service
 public class ExcelService {
+
+	public List<ScadaDataEntity> getOdudList() {
+		return odudList;
+	}
+
+	private Pageable getPageRequest(int limit) {
+		Pageable pageRequest = PageRequest.of(0, limit,
+				Sort.by("entityId.dateS").descending().and(Sort.by("entityId.timeS").descending()));
+		return pageRequest;
+
+	}
+	void initialiseLists()
+	{
+		Integer limit= parameterNames.getListInitSize();
+		frequencyList.addAll(repository.findByDdeItem(parameterNames.getFrequencyParameterName(), getPageRequest(limit)));
+		drawalList.addAll(repository.findByDdeItem(parameterNames.getDrawalParameterName(), getPageRequest(limit)));
+		scheduleList.addAll(repository.findByDdeItem(parameterNames.getScheduleParameterName(), getPageRequest(limit)));
+		odudList.addAll(repository.findByDdeItem(parameterNames.getOdudParameterName(), getPageRequest(limit)));
+		loadList.addAll(repository.findByDdeItem(parameterNames.getLoadParameterName(), getPageRequest(limit)));
+	}
+
+
+
+	public void setOdudList(List<ScadaDataEntity> odudList) {
+		this.odudList = odudList;
+	}
+
+
+
+
+	public List<ScadaDataEntity> getLoadList() {
+		return loadList;
+	}
+
+
+
+
+	public void setLoadList(List<ScadaDataEntity> loadList) {
+		this.loadList = loadList;
+	}
+
+
+
+
+	public List<ScadaDataEntity> getScheduleList() {
+		return scheduleList;
+	}
+
+
+
+
+	public void setScheduleList(List<ScadaDataEntity> scheduleList) {
+		this.scheduleList = scheduleList;
+	}
+
+
+
+
+	public List<ScadaDataEntity> getDrawalList() {
+		return drawalList;
+	}
+
+
+
+
+	public void setDrawalList(List<ScadaDataEntity> drawalList) {
+		this.drawalList = drawalList;
+	}
+
+
+
+
+	public List<ScadaDataEntity> getFrequencyList() {
+		return frequencyList;
+	}
+
+
+
+
+	public void setFrequencyList(List<ScadaDataEntity> frequencyList) {
+		this.frequencyList = frequencyList;
+	}
+
+
+
+
+	@Autowired
+	@Qualifier("odudList")
+	protected List<ScadaDataEntity> odudList;
+
+	@Autowired
+	@Qualifier("loadList")
+	protected List<ScadaDataEntity> loadList;
+
+	@Autowired
+	@Qualifier("scheduleList")
+	protected List<ScadaDataEntity> scheduleList;
+
+	@Autowired
+	@Qualifier("drawalList")
+	protected List<ScadaDataEntity> drawalList;
+
+	@Autowired
+	@Qualifier("frequencyList")
+	protected List<ScadaDataEntity> frequencyList;
+
+
 
 	@Autowired
 	protected GlobalProperties globalProperties;
@@ -47,11 +160,18 @@ public class ExcelService {
 
 
 	@Autowired
-	ScadaDataEntityRepository repository;
+	protected ScadaDataEntityRepository repository;
+
+
+	@Autowired
+	protected ScadaBulkRepository scadaBulkRepository;
+
 
 	public LatestDynamicData getLatestDynamicData() {
 		File fileToRead = null;
 		LatestDynamicData dynamicData=null;
+
+
 		try
 		{
 			dynamicData= new LatestDynamicData();
@@ -83,10 +203,7 @@ public class ExcelService {
 					dynamicData.setOdUD(scadaDataEntity.getValue());
 					LocalDate localDate=scadaDataEntity.getDateS();
 					LocalTime localTime=scadaDataEntity.getTimeS();
-
 					LocalDateTime dateTime= LocalDateTime.of(localDate, localTime);
-
-					//				Date date = new Date(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth(),localTime.getHour(),localTime.getMinute(), localTime.getSecond());
 					dynamicData.setUpdateDate(dateTime);
 
 				}
@@ -116,41 +233,61 @@ public class ExcelService {
 	public void scheduleFixedRateTask() {
 
 		File fileToRead=getFileCopy();
-		List<ScadaDataEntity> list;
+		ScadaDataHolder dataHolder=readExcelToScadaDataHolder(fileToRead);
 
 
+		ScadaDataEntity loadEntity= dataHolder.getScadaMap().get(parameterNames.getLoadParameterName());
+		if(loadEntity!=null)
+		{
+			ScadaMap scadaMap=new ScadaMap();
+			scadaMap.setScadaMap(dataHolder.getScadaMap());
 
-		list= readExcel(fileToRead);
-		//		//REMOVE THIS BLOCK BELOW
-		//		//REMOVE THIS BLOCK BELOW
-		//		//REMOVE THIS BLOCK BELOW
-		//		//REMOVE THIS BLOCK BELOW
-		//		for (ScadaDataEntity entity : list) {
-		//			
-		//			DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		//			
-		//			Date dateS = new Date(System.currentTimeMillis());
-		//			LocalDateTime localDateTime =convertToLocalDateTimeViaInstant(dateS);
-		//		       
-		//			entity.setDateS(localDateTime.toLocalDate());
-		//
-		//			entity.setTimeS(localDateTime.toLocalTime());
-		//			double random=(Math.random()/10) + .95;
-		//			entity.setValue(entity.getValue().multiply(new BigDecimal(random)));
-		//		}
-		//		//REMOVE THIS BLOCK ABOVE
-		//
-		//		//REMOVE THIS BLOCK ABOVE
-		//
-		//		//REMOVE THIS BLOCK ABOVE
+			scadaMap.setExcelAccessTime(loadEntity.getChartDate());
+			scadaBulkRepository.save(scadaMap);
+		}
+		repository.saveAll(dataHolder.getDataEntities());
+		if(frequencyList.size()<10)
+		{
+			initialiseLists();
+		}
 
-		repository.saveAll(list);
+
+		ScadaDataEntity frequencyEntity= dataHolder.getScadaMap().get(parameterNames.getFrequencyParameterName());
+		ScadaDataEntity odudEntity= dataHolder.getScadaMap().get(parameterNames.getOdudParameterName());
+		ScadaDataEntity scheduleEntity= dataHolder.getScadaMap().get(parameterNames.getScheduleParameterName());
+		ScadaDataEntity drawalEntity= dataHolder.getScadaMap().get(parameterNames.getDrawalParameterName());
+
+		if(frequencyEntity!=null)
+		{
+			frequencyList.add(frequencyEntity);
+			frequencyList.remove(0);
+		}
+		if(loadEntity!=null)
+		{
+
+			loadList.add(loadEntity);
+			loadList.remove(0);
+		}
+		if(odudEntity!=null)
+		{
+
+			odudList.add(odudEntity);
+			odudList.remove(0);
+		}
+		if(drawalEntity!=null)
+		{
+
+			drawalList.add(drawalEntity);
+			drawalList.remove(0);
+		}
+		if(scheduleEntity!=null)
+		{
+			scheduleList.add(scheduleEntity);
+			scheduleList.remove(0);
+
+		}
+
 		deleteFile(fileToRead);
-
-		//		for (ScadaDataEntity scadaEntity : list) {
-		//			System.out.println(globalProperties.getFileLocation()+""+globalProperties.getFileName());
-		//			
-		//		}
 	}
 
 
@@ -168,7 +305,6 @@ public class ExcelService {
 		}
 		File tempFile = new File(tempDirectory, (System.currentTimeMillis())+originalFile.getName());
 		Integer size=-1;
-
 		try {
 			size=FileCopyUtils.copy(originalFile, tempFile);
 
@@ -177,7 +313,6 @@ public class ExcelService {
 			e.printStackTrace();
 		}
 		return tempFile;
-
 	}
 
 
@@ -241,6 +376,47 @@ public class ExcelService {
 		return map;
 
 	}
+
+	public ScadaDataHolder readExcelToScadaDataHolder(File fileToRead) {
+		ScadaDataHolder dataHolder=new ScadaDataHolder();
+		List<ScadaDataEntity> list=new ArrayList();
+		HashMap<String, ScadaDataEntity> map = new HashMap();
+		FileInputStream inputStream=null;
+		try {
+			inputStream = new FileInputStream(fileToRead);
+			Workbook workbook = new XSSFWorkbook(inputStream);
+			//workbook.getSettings().setRegion(CountryCode.INDIA); 
+			Sheet datatypeSheet = workbook.getSheetAt(0);
+			Map<String,int[]> columnIndices= getColumnIndices(datatypeSheet,fileToRead,workbook);
+
+			if(columnIndices!=null&&!columnIndices.isEmpty())
+			{
+				for (Row row : datatypeSheet) {
+					ScadaDataEntity scadaEntity= getRowScadaEntity( columnIndices, row);
+
+					if(null!=scadaEntity)
+					{
+						list.add(scadaEntity);
+						map.put(scadaEntity.getDdeItem().toLowerCase().replace('.', '`'),scadaEntity);
+
+					}
+
+				}
+
+			}
+			dataHolder.setDataEntities(list);
+			dataHolder.setScadaMap(map);
+			inputStream.close();
+			return dataHolder;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dataHolder;
+
+
+	}
+
 
 
 	public List<ScadaDataEntity> readExcel(File fileToRead) {
@@ -392,6 +568,7 @@ public class ExcelService {
 		return entity;
 
 	}
+
 
 
 

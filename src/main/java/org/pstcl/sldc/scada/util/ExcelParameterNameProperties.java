@@ -13,6 +13,10 @@ public class ExcelParameterNameProperties {
 	@Autowired
 	private Environment environment;
 
+	@Value("${parameter.list.init.size}")	
+	private Integer listInitSize;
+	
+	
 	@Value("${parameter.frequency}")	private String frequencyParameterName;
 	@Value("${parameter.drawal}")
 	private String drawalParameterName;
@@ -720,6 +724,18 @@ public class ExcelParameterNameProperties {
 	public String getChd_loadParameterName() {
 		// TODO Auto-generated method stub
 		return chd_loadParameterName;
+	}
+
+	public Integer getListInitSize() {
+		return listInitSize;
+	}
+
+	public void setListInitSize(Integer listInitSize) {
+		this.listInitSize = listInitSize;
+	}
+
+	public void setChd_loadParameterName(String chd_loadParameterName) {
+		this.chd_loadParameterName = chd_loadParameterName;
 	}
 
 

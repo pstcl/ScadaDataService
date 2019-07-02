@@ -1,20 +1,12 @@
 package org.pstcl.sldc.scada.service;
 
 import java.io.File;
-import java.text.ParseException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.pstcl.sldc.scada.model.NRGeneration;
 import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel2;
 import org.pstcl.sldc.scada.model.ScadaDataEntity;
-import org.pstcl.sldc.scada.model.ScadaEntity;
-import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
-import org.pstcl.sldc.scada.util.GlobalProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
 @Service
 public class LiveDataExcelService extends  ExcelService {
