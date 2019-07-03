@@ -45,7 +45,7 @@ import org.springframework.util.FileCopyUtils;
 @Service
 public class ExcelService {
 
-	
+
 	public Set<ScadaDataEntity> getOdudList() {
 		return odudList;
 	}
@@ -189,8 +189,6 @@ public class ExcelService {
 			deleteFile(fileToRead);
 
 		}
-
-
 		deleteFile(fileToRead);
 		return dynamicData;
 	}
@@ -205,12 +203,11 @@ public class ExcelService {
 		ScadaDataHolder dataHolder=readExcelToScadaDataHolder(fileToRead);
 
 
-		ScadaDataEntity loadEntity= dataHolder.getScadaMap().get(parameterNames.getLoadParameterName());
+		ScadaDataEntity loadEntity= dataHolder.getScadaMap().get(parameterNames.getLoadParameterName().toLowerCase());
 		if(loadEntity!=null)
 		{
 			ScadaMap scadaMap=new ScadaMap();
 			scadaMap.setScadaMap(dataHolder.getScadaMap());
-
 			scadaMap.setExcelAccessTime(loadEntity.getChartDate());
 			scadaBulkRepository.save(scadaMap);
 		}
@@ -219,12 +216,10 @@ public class ExcelService {
 		{
 			initialiseLists();
 		}
-
-
-		ScadaDataEntity frequencyEntity= dataHolder.getScadaMap().get(parameterNames.getFrequencyParameterName());
-		ScadaDataEntity odudEntity= dataHolder.getScadaMap().get(parameterNames.getOdudParameterName());
-		ScadaDataEntity scheduleEntity= dataHolder.getScadaMap().get(parameterNames.getScheduleParameterName());
-		ScadaDataEntity drawalEntity= dataHolder.getScadaMap().get(parameterNames.getDrawalParameterName());
+		ScadaDataEntity frequencyEntity= dataHolder.getScadaMap().get(parameterNames.getFrequencyParameterName().toLowerCase());
+		ScadaDataEntity odudEntity= dataHolder.getScadaMap().get(parameterNames.getOdudParameterName().toLowerCase());
+		ScadaDataEntity scheduleEntity= dataHolder.getScadaMap().get(parameterNames.getScheduleParameterName().toLowerCase());
+		ScadaDataEntity drawalEntity= dataHolder.getScadaMap().get(parameterNames.getDrawalParameterName().toLowerCase());
 
 		if(frequencyEntity!=null)
 		{
@@ -366,7 +361,8 @@ public class ExcelService {
 					if(null!=scadaEntity)
 					{
 						list.add(scadaEntity);
-						map.put(scadaEntity.getDdeItem().toLowerCase().replace('.', '`'),scadaEntity);
+						map.put(scadaEntity.getDdeItem().toLowerCase(),scadaEntity);
+//						map.put(scadaEntity.getDdeItem().toLowerCase().replace('.', '`'),scadaEntity);
 
 					}
 
