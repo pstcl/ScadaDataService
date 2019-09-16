@@ -57,15 +57,15 @@ public class DataService {
 	@Scheduled(fixedRate = 30 * 1000)
 	public void saveFileDataToRepoScheduled() {
 		File fileToRead = getFileCopy();
-		HashMap<String, ScadaDataEntity> list;
-		list = excelService.readExcelToHashMap(fileToRead);
-		saveScadaFrequentlyAccessibleData(list);
-		saveHistoricalEntities(list);
+		HashMap<String, ScadaDataEntity> map;
+		map = excelService.readExcelToHashMap(fileToRead);
+		saveScadaFrequentlyAccessibleData(map);
+		saveHistoricalEntities(map);
 		deleteFile(fileToRead);
 	}
 
 	private void saveHistoricalEntities(HashMap<String, ScadaDataEntity> list) {
-		List<ScadaDataEntity> dataEntities = (List<ScadaDataEntity>) list.values();
+		List<ScadaDataEntity> dataEntities = new ArrayList<>( list.values());
 		List<HistoricalDataEntity> historicalEntities = new ArrayList<>();
 		for (ScadaDataEntity scadaDataEntity : dataEntities) {
 			HistoricalDataEntity historicalDataEntity = new HistoricalDataEntity(scadaDataEntity);
@@ -74,7 +74,7 @@ public class DataService {
 		historicalDataEntityRepository.saveAll(historicalEntities);
 	}
 
-	public void saveScadaFrequentlyAccessibleData(HashMap<String, ScadaDataEntity> map) {
+	private void saveScadaFrequentlyAccessibleData(HashMap<String, ScadaDataEntity> map) {
 		try {
 			scadaDataRepository.save(map.get(parameterNames.getFrequencyParameterName()));
 			scadaDataRepository.save(map.get(parameterNames.getDrawalParameterName()));
