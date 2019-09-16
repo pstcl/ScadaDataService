@@ -20,7 +20,7 @@ public interface ScadaDataEntityRepository extends PagingAndSortingRepository<Sc
 	@Query(value = "SELECT obj from ScadaDataEntity obj where obj.entityId.ddeItem = :ddeItem ")
 	List<ScadaDataEntity> findByDdeItem(@Param("ddeItem") String ddeItem, Pageable pageable);
 
-	@Query("select obj from ScadaDataEntity obj where obj.entityId.dateS <= :dateS")
+	@Query("select obj from ScadaDataEntity obj where obj.entityId.dateS < :dateS")
 	List<ScadaDataEntity> findAllWithDateSBefore(@Param("dateS") LocalDate dateS);
 
 }

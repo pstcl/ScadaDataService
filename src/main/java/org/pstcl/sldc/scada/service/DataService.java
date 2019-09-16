@@ -44,17 +44,16 @@ public class DataService {
 	@Autowired
 	protected ExcelParameterNameProperties parameterNames;
 
-
 	@Scheduled(cron = "0 14 5 * * *")
 	public void deleteOldEntities() {
 
-		List<ScadaDataEntity> entitiesToBeDeleted= scadaDataRepository.findAllWithDateSBefore(LocalDate.now());
+		List<ScadaDataEntity> entitiesToBeDeleted = scadaDataRepository.findAllWithDateSBefore(LocalDate.now());
 		for (ScadaDataEntity scadaDataEntity : entitiesToBeDeleted) {
 			scadaDataRepository.delete(scadaDataEntity);
 		}
 	}
 
-	@Scheduled(fixedRate = 30 * 1000)
+	@Scheduled(fixedRate = 3000 * 1000)
 	public void saveFileDataToRepoScheduled() {
 		File fileToRead = getFileCopy();
 		HashMap<String, ScadaDataEntity> map;
@@ -65,7 +64,7 @@ public class DataService {
 	}
 
 	private void saveHistoricalEntities(HashMap<String, ScadaDataEntity> list) {
-		List<ScadaDataEntity> dataEntities = new ArrayList<>( list.values());
+		List<ScadaDataEntity> dataEntities = new ArrayList<>(list.values());
 		List<HistoricalDataEntity> historicalEntities = new ArrayList<>();
 		for (ScadaDataEntity scadaDataEntity : dataEntities) {
 			HistoricalDataEntity historicalDataEntity = new HistoricalDataEntity(scadaDataEntity);
@@ -76,11 +75,31 @@ public class DataService {
 
 	private void saveScadaFrequentlyAccessibleData(HashMap<String, ScadaDataEntity> map) {
 		try {
-			scadaDataRepository.save(map.get(parameterNames.getFrequencyParameterName()));
-			scadaDataRepository.save(map.get(parameterNames.getDrawalParameterName()));
-			scadaDataRepository.save(map.get(parameterNames.getLoadParameterName()));
-			scadaDataRepository.save(map.get(parameterNames.getScheduleParameterName()));
-			scadaDataRepository.save(map.get(parameterNames.getOdudParameterName()));
+
+
+			ScadaDataEntity freqEntity = map.get(parameterNames.getFrequencyParameterName().toLowerCase());
+
+			if (freqEntity != null) {
+				scadaDataRepository.save(freqEntity);
+			}
+			ScadaDataEntity drawalEntity = map.get(parameterNames.getDrawalParameterName().toLowerCase());
+			if (drawalEntity != null) {
+				scadaDataRepository.save(drawalEntity);
+			}
+			ScadaDataEntity loadEntity = map.get(parameterNames.getLoadParameterName().toLowerCase());
+			if (loadEntity != null) {
+				scadaDataRepository.save(loadEntity);
+			}
+
+			ScadaDataEntity scheduleEntity = map.get(parameterNames.getScheduleParameterName().toLowerCase());
+			if (scheduleEntity != null) {
+				scadaDataRepository.save(scheduleEntity);
+			}
+
+			ScadaDataEntity odudEntity = map.get(parameterNames.getOdudParameterName().toLowerCase());
+			if (odudEntity != null) {
+				scadaDataRepository.save(odudEntity);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

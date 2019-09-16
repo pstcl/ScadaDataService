@@ -13,7 +13,8 @@ public class ExcelParameterNameProperties {
 	@Autowired
 	private Environment environment;
 
-	@Value("${parameter.frequency}")	private String frequencyParameterName;
+	@Value("${parameter.frequency}")	
+	private String frequencyParameterName;
 	@Value("${parameter.drawal}")
 	private String drawalParameterName;
 	@Value("${parameter.schedule}")

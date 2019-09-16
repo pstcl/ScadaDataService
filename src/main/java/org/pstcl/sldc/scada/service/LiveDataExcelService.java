@@ -16,26 +16,26 @@ import org.springframework.stereotype.Service;
 public class LiveDataExcelService extends  ExcelService {
 
 
-public LatestDynamicData getLatestDynamicData(File fileToRead) {
-		
+	public LatestDynamicData getLatestDynamicData(File fileToRead) {
+
 		LatestDynamicData dynamicData = null;
 		try {
 			dynamicData = new LatestDynamicData();
-			
+
 			HashMap<String, ScadaDataEntity> map = readExcelToHashMap(fileToRead);
 
-			ScadaDataEntity scadaDataEntity = map.get(parameterNames.getFrequencyParameterName());
+			ScadaDataEntity scadaDataEntity = map.get(parameterNames.getFrequencyParameterName().toLowerCase());
 			dynamicData.setFrequencyHz(scadaDataEntity.getValue());
 
-			scadaDataEntity = map.get(parameterNames.getDrawalParameterName());
+			scadaDataEntity = map.get(parameterNames.getDrawalParameterName().toLowerCase());
 			dynamicData.setDrawalMW(scadaDataEntity.getValue());
 
-			scadaDataEntity = map.get(parameterNames.getLoadParameterName());
+			scadaDataEntity = map.get(parameterNames.getLoadParameterName().toLowerCase());
 			dynamicData.setLoadMW(scadaDataEntity.getValue());
 
-			scadaDataEntity = map.get(parameterNames.getScheduleParameterName());
+			scadaDataEntity = map.get(parameterNames.getScheduleParameterName().toLowerCase());
 			dynamicData.setScheduleMW(scadaDataEntity.getValue());
-			scadaDataEntity = map.get(parameterNames.getOdudParameterName());
+			scadaDataEntity = map.get(parameterNames.getOdudParameterName().toLowerCase());
 
 			dynamicData.setOdUD(scadaDataEntity.getValue());
 			LocalDate localDate = scadaDataEntity.getDateS();
@@ -50,19 +50,19 @@ public LatestDynamicData getLatestDynamicData(File fileToRead) {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			return null;
 		} 
 		return dynamicData;
 	}
 
-	
+
 	public PunjabOwnGenerationModel getPunjabGenData2(File fileToRead) {
-		
+
 		PunjabOwnGenerationModel ownGenerationModel = null;
 
 		try {
 			ownGenerationModel = new PunjabOwnGenerationModel();
-			
+
 			HashMap<String, ScadaDataEntity> list = readExcelToHashMap(fileToRead);
 
 			ownGenerationModel.setHydroRSD1(list.get(parameterNames.getRsd1ParameterName().toLowerCase()));
@@ -119,17 +119,17 @@ public LatestDynamicData getLatestDynamicData(File fileToRead) {
 		} 
 		return ownGenerationModel;
 	}
-	
-	
+
+
 	public NRGeneration getNRGeneration(File fileToRead ) {
-		
+
 		NRGeneration nrGenerationModel = null;
 
 		try {
 			nrGenerationModel = new NRGeneration();
-			
+
 			HashMap<String, ScadaDataEntity> list = readExcelToHashMap(fileToRead);
-			
+
 			nrGenerationModel.setChd_drwl(list.get(parameterNames.getChd_drwlParameterName().toLowerCase()));
 			nrGenerationModel.setChd_load(list.get(parameterNames.getChd_loadParameterName().toLowerCase()));
 			nrGenerationModel.setChd_odud(list.get(parameterNames.getChd_odudParameterName().toLowerCase()));
@@ -167,7 +167,7 @@ public LatestDynamicData getLatestDynamicData(File fileToRead) {
 			nrGenerationModel.setUp_odud(list.get(parameterNames.getUp_odudParameterName().toLowerCase()));
 			nrGenerationModel.setUp_sch(list.get(parameterNames.getUp_schParameterName().toLowerCase()));
 
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -176,6 +176,6 @@ public LatestDynamicData getLatestDynamicData(File fileToRead) {
 	}
 
 
-	
+
 
 }
