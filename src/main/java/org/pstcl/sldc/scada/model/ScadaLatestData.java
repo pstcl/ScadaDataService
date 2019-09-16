@@ -1,5 +1,7 @@
 package org.pstcl.sldc.scada.model;
 
+import org.pstcl.sldc.scada.model.entity.ScadaDataEntity;
+
 public class ScadaLatestData {
 	private ScadaDataEntity frequency;
 	private ScadaDataEntity drawal;

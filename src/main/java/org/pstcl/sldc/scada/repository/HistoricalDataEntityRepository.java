@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.pstcl.sldc.scada.model.entity.HistoricalDataEntity;
 import org.pstcl.sldc.scada.model.entity.ScadaDataEntity;
 import org.pstcl.sldc.scada.model.entity.ScadaEntityId;
 import org.springframework.data.domain.Pageable;
@@ -13,37 +14,61 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-//@RepositoryRestResource(collectionResourceRel="scadadata",path="scadadata")
-public interface ScadaDataEntityRepository extends PagingAndSortingRepository<ScadaDataEntity, ScadaEntityId> {
+public interface HistoricalDataEntityRepository extends PagingAndSortingRepository<HistoricalDataEntity, ScadaEntityId> {
 
-	@RestResource(exported = false)
-	@Query(value = "SELECT obj from ScadaDataEntity obj where obj.entityId.ddeItem = :ddeItem ")
-	List<ScadaDataEntity> findByDdeItem(@Param("ddeItem") String ddeItem, Pageable pageable);
 
-	@Query("select obj from ScadaDataEntity obj where obj.entityId.dateS <= :dateS")
-	List<ScadaDataEntity> findAllWithDateSBefore(@Param("dateS") LocalDate dateS);
-
+	
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-// @Override
-// @RestResource(exported = false)
-// public List<ScadaDataEntity> findAll();
-//
+	//	@Override
+	//    @RestResource(exported = false)
+	//    public List<ScadaDataEntity> findAll();
+	//	
 
-// @RestResource(exported = false)
-// @Query(value="select entity from ScadaDataEntity entity where
-// entity.entityId.dateS >= :dateS")
-// List<ScadaDataEntity> findAllWithdateS(@Param("dateS") LocalDate dateS);
-// @DateTimeFormat(pattern="yyyy-MM-dd")@Param("dateS")
 
-// @RestResource(exported = false)
-// @Query("select entity from ScadaDataEntity entity where entity.entityId.dateS
-// >= :dateS")
-// List<ScadaDataEntity> findAllWithdateS(
-// @DateTimeFormat(pattern="yyyy-MM-dd") @Param("dateS") LocalDate dateS);
-//
+	//	@RestResource(exported = false)
+	//    @Query(value="select entity from ScadaDataEntity entity where entity.entityId.dateS >= :dateS")
+	//    List<ScadaDataEntity> findAllWithdateS(@Param("dateS") LocalDate dateS);
+	//@DateTimeFormat(pattern="yyyy-MM-dd")@Param("dateS")
 
-//
+
+	//	@RestResource(exported = false)
+	//    @Query("select entity from ScadaDataEntity entity where entity.entityId.dateS >= :dateS")
+	//    List<ScadaDataEntity> findAllWithdateS(
+	//    		@DateTimeFormat(pattern="yyyy-MM-dd")    		@Param("dateS") LocalDate dateS);
+	//	
+
+	//  
+
+
 
 //
 //	@RestResource(exported = false)

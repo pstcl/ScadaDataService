@@ -2,530 +2,718 @@ package org.pstcl.sldc.scada.model;
 
 import java.math.BigDecimal;
 
+import org.pstcl.sldc.scada.model.entity.ScadaDataEntity;
+
 public class PunjabOwnGenerationModel {
+
+
+
+	private ScadaDataJsonPojo grossGeneration;
+
+
+
+	private ScadaDataEntity hydroRSD1 ;
+
+	private ScadaDataEntity hydroRSD2 ;
+
+	private ScadaDataEntity hydroRSD3 ;
+
+	private ScadaDataEntity hydroRSD4 ;
+
+	private ScadaDataEntity hydroRSDASHP1 ;
+
+	private ScadaDataEntity hydroRSDASHP2 ;
+
+	private ScadaDataEntity hydroRSDMHP ;
+
+	private ScadaDataEntity hydroRSDUBDC ;
+
+	private ScadaDataEntity hydroShanan;
+
+	private ScadaDataEntity hydroShananJog1;
+
+	private ScadaDataEntity hydroShananJog2;
+
+	private ScadaDataEntity hydroShananJog3;
+
+	private ScadaDataEntity hydroShananJog4;
+
+	private ScadaDataEntity hydroShananJog5;
+
+	private ScadaDataEntity hydroShananJog6;
+
+	private ScadaDataEntity ippGVK1;
+
+
+	private ScadaDataEntity ippGVK2;
+
+	private ScadaDataEntity ippGVK3;
+
+	private ScadaDataEntity ippRajpura1;
+
+	private ScadaDataEntity ippRajpura2;
+
+	private ScadaDataEntity ippRajpura3;
+
+	private ScadaDataEntity ippTalwandiSabo1;
+
+	private ScadaDataEntity ippTalwandiSabo2;
+
+	private ScadaDataEntity ippTalwandiSabo3;
+
+	private ScadaDataEntity resNonSolar;
+	private ScadaDataEntity resSolar;
+
+	private ScadaDataEntity thermalGGSSTPRopar1;
+
+
+	private ScadaDataEntity thermalGGSSTPRopar2;
+
+	private ScadaDataEntity thermalGGSSTPRopar3;
+
+	private ScadaDataEntity thermalGGSSTPRopar4;
+
+
+
+	private ScadaDataEntity thermalGGSSTPRopar5;
+
+	private ScadaDataEntity thermalGGSSTPRopar6;
+
+	private ScadaDataEntity thermalGHTPLehraMohabbat1;
+
+	private ScadaDataEntity thermalGHTPLehraMohabbat2;
+
+	private ScadaDataEntity thermalGHTPLehraMohabbat3;
+
+	private ScadaDataEntity thermalGHTPLehraMohabbat4;
+
+	private ScadaDataEntity thermalGHTPLehraMohabbat5;
+
+	private ScadaDataEntity thermalGHTPLehraMohabbat6;
+	
+	//totalGGSSTPRopar totalGHTPLehraMohabbat totalRSD totalIppRajpura totalIppTalwandiSabo totalIppGVK
+	
+
+	private ScadaDataEntity totalGGSSTPRopar;
+
+	private ScadaDataEntity totalGHTPLehraMohabbat;
+
+	private ScadaDataEntity totalHydro;
+
+	private ScadaDataEntity totalIpp;
+
+	private ScadaDataEntity totalIppGVK;
+
+	private ScadaDataEntity totalIppRajpura;
+	
+
+	private ScadaDataEntity totalIppTalwandiSabo;
+
+	private ScadaDataEntity totalResGeneration;
+
+
+
+	private ScadaDataEntity totalRSD;
+
+
+
+	private ScadaDataEntity totalThermal;
 
 
 
 	public PunjabOwnGenerationModel() {
 		super();
-		this.grossGeneration =BigDecimal.ZERO;
-		this.hydroRSD1 = BigDecimal.ZERO;
-		this.hydroRSD2 = BigDecimal.ZERO;
-		this.hydroRSD3 = BigDecimal.ZERO;
-		this.hydroRSD4ASHP1 	=BigDecimal.ZERO;
-		this.hydroRSD4ASHP2 =BigDecimal.ZERO;
-		this.hydroRSD4MHP =BigDecimal.ZERO;
-		this.hydroRSD4UBDC =BigDecimal.ZERO;
-		this.hydroShanan =BigDecimal.ZERO;
-		this.hydroShananJog1 =BigDecimal.ZERO;
-		this.hydroShananJog2 =BigDecimal.ZERO;
-		this.hydroShananJog3 =BigDecimal.ZERO;
-		this.hydroShananJog4 =BigDecimal.ZERO;
-		this.hydroShananJog5 =BigDecimal.ZERO;
-		this.hydroShananJog6 =BigDecimal.ZERO;
-		this.ippGVK1 =BigDecimal.ZERO;
-		this.ippGVK2 =BigDecimal.ZERO;
-		this.ippGVK3 =BigDecimal.ZERO;
-		this.ippRajpura1 =BigDecimal.ZERO;
-		this.ippRajpura2 =BigDecimal.ZERO;
-		this.ippRajpura3 =BigDecimal.ZERO;
-		this.ippTalwandiSabo1 =BigDecimal.ZERO;
-		this.ippTalwandiSabo2 =BigDecimal.ZERO;
-		this.ippTalwandiSabo3 =BigDecimal.ZERO;
-		this.thermalGGSSTPRopar1 =BigDecimal.ZERO;
-		this.thermalGGSSTPRopar2 =BigDecimal.ZERO;
-		this.thermalGGSSTPRopar3 =BigDecimal.ZERO;
-		this.thermalGGSSTPRopar4 =BigDecimal.ZERO;
-		this.thermalGGSSTPRopar5 =BigDecimal.ZERO;
-		this.thermalGGSSTPRopar6 =BigDecimal.ZERO;
-		this.thermalGHTPLehraMohabbat1 =BigDecimal.ZERO;
-		this.thermalGHTPLehraMohabbat2 =BigDecimal.ZERO;
-		this.thermalGHTPLehraMohabbat3 =BigDecimal.ZERO;
-		this.thermalGHTPLehraMohabbat4 =BigDecimal.ZERO;
-		this.thermalGHTPLehraMohabbat5 =BigDecimal.ZERO;
-		this.thermalGHTPLehraMohabbat6 =BigDecimal.ZERO;
-		this.totalGGSSTPRopar =BigDecimal.ZERO;
-		this.totalGHTPLehraMohabbat =BigDecimal.ZERO;
-		this.totalHydro =BigDecimal.ZERO;
-		this.totalIpp =BigDecimal.ZERO;
-		this.totalIppGVK =BigDecimal.ZERO;
-		this.totalIppRajpura =BigDecimal.ZERO;
-		this.totalIppTalwandiSabo =BigDecimal.ZERO;
-		this.totalResGeneration =BigDecimal.ZERO;
-		this.totalRSD =BigDecimal.ZERO;
-		this.totalThermal =BigDecimal.ZERO;
 	}
 
-	private BigDecimal grossGeneration;
-
-	private BigDecimal hydroRSD1 ;
-
-	private BigDecimal hydroRSD2 ;
-
-	private BigDecimal hydroRSD3 ;
-
-	private BigDecimal hydroRSD4ASHP1 ;
-
-	
-	private BigDecimal hydroRSD4ASHP2 ;
 
 
-
-	
-	private BigDecimal hydroRSD4MHP ;
-
-	private BigDecimal hydroRSD4UBDC ;
-
-	private BigDecimal hydroShanan;
-
-	private BigDecimal hydroShananJog1;
-
-	private BigDecimal hydroShananJog2;
-
-	private BigDecimal hydroShananJog3;
-
-	private BigDecimal hydroShananJog4;
-
-	private BigDecimal hydroShananJog5;
-
-
-	private BigDecimal hydroShananJog6;
-
-	private BigDecimal ippGVK1;
-
-	private BigDecimal ippGVK2;
-
-	private BigDecimal ippGVK3;
-
-	private BigDecimal ippRajpura1;
-
-	private BigDecimal ippRajpura2;
-
-	private BigDecimal ippRajpura3;
-
-	private BigDecimal ippTalwandiSabo1;
-
-	private BigDecimal ippTalwandiSabo2;
-	private BigDecimal ippTalwandiSabo3;
-
-	private BigDecimal thermalGGSSTPRopar1;
+	public void calculateGrossGeneration() {
+		ScadaDataJsonPojo dataEntity=new ScadaDataJsonPojo();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getTotalResGeneration())
+		dataEntity.setValue(dataEntity.getValue().add(this.getTotalResGeneration().getValue()));
+		if(null!=this.calculateTotalHydro())
+			
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalHydro().getValue()));
+		if(null!=this.calculateTotalThermal())
+			
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalThermal().getValue()));
+		if(null!=this.calculateTotalIpp())
+			
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalIpp().getValue()));
+		
+		grossGeneration=dataEntity;
+	}
 
 
-	private BigDecimal thermalGGSSTPRopar2;
-
-	private BigDecimal thermalGGSSTPRopar3;
-
-	private BigDecimal thermalGGSSTPRopar4;
-
-
-
-	private BigDecimal thermalGGSSTPRopar5;
-
-	private BigDecimal thermalGGSSTPRopar6;
-
-	private BigDecimal thermalGHTPLehraMohabbat1;
-
-	private BigDecimal thermalGHTPLehraMohabbat2;
-
-	private BigDecimal thermalGHTPLehraMohabbat3;
-
-	private BigDecimal thermalGHTPLehraMohabbat4;
-
-	private BigDecimal thermalGHTPLehraMohabbat5;
-
-	private BigDecimal thermalGHTPLehraMohabbat6;
-
-	private BigDecimal totalGGSSTPRopar;
-
-	private BigDecimal totalGHTPLehraMohabbat;
-
-	private BigDecimal totalHydro;
-
-	private BigDecimal totalIpp;
-
-	private BigDecimal totalIppGVK;
-
-	private BigDecimal totalIppRajpura;
-
-	private BigDecimal totalIppTalwandiSabo;
-
-	private BigDecimal totalResGeneration;
-	private BigDecimal totalRSD;
-	private BigDecimal totalThermal;
-
-
-
-	public BigDecimal getTotalGGSSTPRopar() {
+	public ScadaDataEntity calculateTotalGGSSTPRopar() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getThermalGGSSTPRopar1())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGGSSTPRopar1().getValue()));
+		if(null!=this.getThermalGGSSTPRopar2())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGGSSTPRopar2().getValue()));
+		if(null!=this.getThermalGGSSTPRopar3())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGGSSTPRopar3().getValue()));
+		if(null!=this.getThermalGGSSTPRopar4())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGGSSTPRopar4().getValue()));
+		if(null!=this.getThermalGGSSTPRopar5())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGGSSTPRopar5().getValue()));
+		if(null!=this.getThermalGGSSTPRopar6())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGGSSTPRopar6().getValue()));
+		this.totalGGSSTPRopar=dataEntity;
 		return totalGGSSTPRopar;
 	}
 
-	public void setTotalGGSSTPRopar(BigDecimal totalGGSSTPRopar) {
-		this.totalGGSSTPRopar = totalGGSSTPRopar;
+	public ScadaDataEntity calculateTotalGHTPLehraMohabbat() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getThermalGHTPLehraMohabbat1())
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGHTPLehraMohabbat1().getValue()));
+		if(null!=this.getThermalGHTPLehraMohabbat2())
+			
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGHTPLehraMohabbat2().getValue()));
+		if(null!=this.getThermalGHTPLehraMohabbat3())
+			
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGHTPLehraMohabbat3().getValue()));
+		if(null!=this.getThermalGHTPLehraMohabbat4())
+			
+		dataEntity.setValue(dataEntity.getValue().add(this.getThermalGHTPLehraMohabbat4().getValue()));
+	//	dataEntity.setValue(dataEntity.getValue().add(this.getThermalGHTPLehraMohabbat5().getValue()));
+	//	dataEntity.setValue(dataEntity.getValue().add(this.getThermalGHTPLehraMohabbat6().getValue()));
+
+		this.totalGHTPLehraMohabbat=dataEntity;
+		return totalGHTPLehraMohabbat;	}
+	public ScadaDataEntity calculateTotalHydro() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.calculateTotalRSD())
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalRSD().getValue()));
+		if(null!=this.getHydroRSDASHP1())
+		dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSDASHP1().getValue()));
+		if(null!=this.getHydroRSDASHP2())
+		dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSDASHP2().getValue()));
+		if(null!=this.getHydroRSDMHP())
+		dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSDMHP().getValue()));
+		if(null!=this.getHydroRSDUBDC())
+		dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSDUBDC().getValue()));
+		if(null!=this.getHydroShanan())
+		dataEntity.setValue(dataEntity.getValue().add(this.getHydroShanan().getValue()));
+
+		this.totalHydro=dataEntity;
+		return totalHydro;	
+		
+	}
+	public ScadaDataEntity calculateTotalIpp() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.calculateTotalIppGVK())
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalIppGVK().getValue()));
+		if(null!=this.calculateTotalIppRajpura())dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalIppRajpura().getValue()));
+		if(null!=this.calculateTotalIppTalwandiSabo())	dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalIppTalwandiSabo().getValue()));
+
+		this.totalIpp=dataEntity;
+		return totalIpp;	
 	}
 
-	public BigDecimal getTotalGHTPLehraMohabbat() {
-		return totalGHTPLehraMohabbat;
+
+
+	public ScadaDataEntity calculateTotalIppGVK() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getIppGVK1())dataEntity.setValue(dataEntity.getValue().add(this.getIppGVK1().getValue()));
+		if(null!=this.getIppGVK2())dataEntity.setValue(dataEntity.getValue().add(this.getIppGVK2().getValue()));
+		if(null!=this.getIppGVK3())dataEntity.setValue(dataEntity.getValue().add(this.getIppGVK3().getValue()));
+
+		this.totalIppGVK=dataEntity;
+		return dataEntity;
+
 	}
 
-	public void setTotalGHTPLehraMohabbat(BigDecimal totalGHTPLehraMohabbat) {
-		this.totalGHTPLehraMohabbat = totalGHTPLehraMohabbat;
+	public ScadaDataEntity calculateTotalIppRajpura() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getIppRajpura1())dataEntity.setValue(dataEntity.getValue().add(this.getIppRajpura1().getValue()));
+		if(null!=this.getIppRajpura2())	dataEntity.setValue(dataEntity.getValue().add(this.getIppRajpura2().getValue()));
+		if(null!=this.getIppRajpura3())	dataEntity.setValue(dataEntity.getValue().add(this.getIppRajpura3().getValue()));
+
+		this.totalIppRajpura=dataEntity;
+		return dataEntity;
 	}
 
-	public BigDecimal getTotalIppGVK() {
-		return totalIppGVK;
+	public ScadaDataEntity calculateTotalIppTalwandiSabo() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getIppTalwandiSabo1())dataEntity.setValue(dataEntity.getValue().add(this.getIppTalwandiSabo1().getValue()));
+		if(null!=this.getIppTalwandiSabo2())dataEntity.setValue(dataEntity.getValue().add(this.getIppTalwandiSabo2().getValue()));
+		if(null!=this.getIppTalwandiSabo3())dataEntity.setValue(dataEntity.getValue().add(this.getIppTalwandiSabo3().getValue()));
+
+		this.totalIppTalwandiSabo=dataEntity;
+		return dataEntity;
+}
+
+	public ScadaDataEntity calculateTotalRSD() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		if(null!=this.getHydroRSD1())
+		dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSD1().getValue()));
+		if(null!=this.getHydroRSD2())dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSD2().getValue()));
+		if(null!=this.getHydroRSD3())dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSD3().getValue()));
+		if(null!=this.getHydroRSD4())dataEntity.setValue(dataEntity.getValue().add(this.getHydroRSD4().getValue()));
+
+		this.totalRSD=dataEntity;
+		return dataEntity;
+
 	}
 
-	public void setTotalIppGVK(BigDecimal totalIppGVK) {
-		this.totalIppGVK = totalIppGVK;
+	
+
+	public ScadaDataEntity calculateTotalThermal() {
+		ScadaDataEntity dataEntity=new ScadaDataEntity();
+		dataEntity.setValue(BigDecimal.ZERO);
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalGGSSTPRopar().getValue()));
+		dataEntity.setValue(dataEntity.getValue().add(this.calculateTotalGHTPLehraMohabbat().getValue()));
+		
+		this.totalThermal=dataEntity;
+		
+		return dataEntity;
 	}
 
-	public BigDecimal getTotalRSD() {
-		return totalRSD;
-	}
 
-	public void setTotalRSD(BigDecimal totalRSD) {
-		this.totalRSD = totalRSD;
-	}
 
-	public BigDecimal getGrossGeneration() {
+	public ScadaDataEntity getGrossGeneration() {
 		return grossGeneration;
 	}
 
-	public BigDecimal getHydroRSD1() {
+
+
+	public ScadaDataEntity getHydroRSD1() {
 		return hydroRSD1;
 	}
 
 
-	public BigDecimal getHydroRSD2() {
+
+	public ScadaDataEntity getHydroRSD2() {
 		return hydroRSD2;
 	}
 
 
-	public BigDecimal getHydroRSD3() {
+
+	public ScadaDataEntity getHydroRSD3() {
 		return hydroRSD3;
 	}
 
-	public BigDecimal getHydroRSD4ASHP1() {
-		return hydroRSD4ASHP1;
+
+
+	public ScadaDataEntity getHydroRSD4() {
+		return hydroRSD4;
 	}
 
 
 
-	public BigDecimal getHydroRSD4ASHP2() {
-		return hydroRSD4ASHP2;
+	public ScadaDataEntity getHydroRSDASHP1() {
+		return hydroRSDASHP1;
 	}
 
 
-	public BigDecimal getHydroRSD4MHP() {
-		return hydroRSD4MHP;
+
+	public ScadaDataEntity getHydroRSDASHP2() {
+		return hydroRSDASHP2;
 	}
 
-	public BigDecimal getHydroRSD4UBDC() {
-		return hydroRSD4UBDC;
+
+
+	public ScadaDataEntity getHydroRSDMHP() {
+		return hydroRSDMHP;
 	}
 
-	public BigDecimal getHydroShanan() {
+	public ScadaDataEntity getHydroRSDUBDC() {
+		return hydroRSDUBDC;
+	}
+
+
+	public ScadaDataEntity getHydroShanan() {
 		return hydroShanan;
 	}
 
-	public BigDecimal getHydroShananJog1() {
+
+	public ScadaDataEntity getHydroShananJog1() {
 		return hydroShananJog1;
 	}
-	public BigDecimal getHydroShananJog2() {
+
+	public ScadaDataEntity getHydroShananJog2() {
 		return hydroShananJog2;
 	}
-	public BigDecimal getHydroShananJog3() {
+
+	
+	public ScadaDataEntity getHydroShananJog3() {
 		return hydroShananJog3;
 	}
-	public BigDecimal getHydroShananJog4() {
+
+	
+	public ScadaDataEntity getHydroShananJog4() {
 		return hydroShananJog4;
 	}
-	public BigDecimal getHydroShananJog5() {
+
+	public ScadaDataEntity getHydroShananJog5() {
 		return hydroShananJog5;
 	}
-	public BigDecimal getHydroShananJog6() {
+
+	public ScadaDataEntity getHydroShananJog6() {
 		return hydroShananJog6;
 	}
 
-	public BigDecimal getIppGVK1() {
+	public ScadaDataEntity getIppGVK1() {
 		return ippGVK1;
 	}
-
-	public BigDecimal getIppGVK2() {
+	public ScadaDataEntity getIppGVK2() {
 		return ippGVK2;
 	}
-
-	public BigDecimal getIppGVK3() {
+	public ScadaDataEntity getIppGVK3() {
 		return ippGVK3;
 	}
-
-	public BigDecimal getIppRajpura1() {
+	public ScadaDataEntity getIppRajpura1() {
 		return ippRajpura1;
 	}
-
-	public BigDecimal getIppRajpura2() {
+	public ScadaDataEntity getIppRajpura2() {
 		return ippRajpura2;
 	}
-
-	public BigDecimal getIppRajpura3() {
+	public ScadaDataEntity getIppRajpura3() {
 		return ippRajpura3;
 	}
 
-	public BigDecimal getIppTalwandiSabo1() {
+	public ScadaDataEntity getIppTalwandiSabo1() {
 		return ippTalwandiSabo1;
 	}
 
-	public BigDecimal getIppTalwandiSabo2() {
+	public ScadaDataEntity getIppTalwandiSabo2() {
 		return ippTalwandiSabo2;
 	}
 
-	public BigDecimal getIppTalwandiSabo3() {
+	public ScadaDataEntity getIppTalwandiSabo3() {
 		return ippTalwandiSabo3;
 	}
 
-	public BigDecimal getThermalGGSSTPRopar1() {
+	public ScadaDataEntity getResNonSolar() {
+		return resNonSolar;
+	}
+
+	public ScadaDataEntity getResSolar() {
+		return resSolar;
+	}
+
+	public ScadaDataEntity getThermalGGSSTPRopar1() {
 		return thermalGGSSTPRopar1;
 	}
 
-
-	public BigDecimal getThermalGGSSTPRopar2() {
+	public ScadaDataEntity getThermalGGSSTPRopar2() {
 		return thermalGGSSTPRopar2;
 	}
 
-	public BigDecimal getThermalGGSSTPRopar3() {
+	public ScadaDataEntity getThermalGGSSTPRopar3() {
 		return thermalGGSSTPRopar3;
 	}
 
-	public BigDecimal getThermalGGSSTPRopar4() {
+	public ScadaDataEntity getThermalGGSSTPRopar4() {
 		return thermalGGSSTPRopar4;
 	}
 
-	public BigDecimal getThermalGGSSTPRopar5() {
+	public ScadaDataEntity getThermalGGSSTPRopar5() {
 		return thermalGGSSTPRopar5;
 	}
 
-	public BigDecimal getThermalGGSSTPRopar6() {
+
+	public ScadaDataEntity getThermalGGSSTPRopar6() {
 		return thermalGGSSTPRopar6;
 	}
 
-
-	public BigDecimal getThermalGHTPLehraMohabbat1() {
+	public ScadaDataEntity getThermalGHTPLehraMohabbat1() {
 		return thermalGHTPLehraMohabbat1;
 	}
 
-	public BigDecimal getThermalGHTPLehraMohabbat2() {
+	public ScadaDataEntity getThermalGHTPLehraMohabbat2() {
 		return thermalGHTPLehraMohabbat2;
 	}
 
-	public BigDecimal getThermalGHTPLehraMohabbat3() {
+	public ScadaDataEntity getThermalGHTPLehraMohabbat3() {
 		return thermalGHTPLehraMohabbat3;
 	}
 
-	public BigDecimal getThermalGHTPLehraMohabbat4() {
+	public ScadaDataEntity getThermalGHTPLehraMohabbat4() {
 		return thermalGHTPLehraMohabbat4;
 	}
 
-	public BigDecimal getThermalGHTPLehraMohabbat5() {
+
+	public ScadaDataEntity getThermalGHTPLehraMohabbat5() {
 		return thermalGHTPLehraMohabbat5;
 	}
 
-	public BigDecimal getThermalGHTPLehraMohabbat6() {
+	public ScadaDataEntity getThermalGHTPLehraMohabbat6() {
 		return thermalGHTPLehraMohabbat6;
 	}
 
-	public BigDecimal getTotalHydro() {
+	public ScadaDataEntity getTotalGGSSTPRopar() {
+		return totalGGSSTPRopar;
+	}
+
+	public ScadaDataEntity getTotalGHTPLehraMohabbat() {
+		return totalGHTPLehraMohabbat;
+	}
+
+	public ScadaDataEntity getTotalHydro() {
 		return totalHydro;
-	}
-
-	public BigDecimal getTotalIpp() {
-		return totalIpp;
-	}
-
-	public BigDecimal getTotalIppRajpura() {
-
-		return totalIppRajpura;
-	}
-
-	public BigDecimal getTotalIppTalwandiSabo() {
-		return totalIppTalwandiSabo;
-	}
-
-	public BigDecimal getTotalResGeneration() {
-		return totalResGeneration;
-	}
-
-	public BigDecimal getTotalThermal() {
-		return totalThermal;
-	}
-
-	public void setGrossGeneration(BigDecimal grossGeneration) {
-		this.grossGeneration = grossGeneration;
-	}
-
-	public void setHydroRSD1(BigDecimal hydroRSD1) {
-		this.hydroRSD1 = hydroRSD1;
-	}
-
-	public void setHydroRSD2(BigDecimal hydroRSD2) {
-		this.hydroRSD2 = hydroRSD2;
-	}
-
-	public void setHydroRSD3(BigDecimal hydroRSD3) {
-		this.hydroRSD3 = hydroRSD3;
-	}
-
-	public void setHydroRSD4ASHP1(BigDecimal hydroRSD4ASHP1) {
-		this.hydroRSD4ASHP1 = hydroRSD4ASHP1;
 	}
 
 	
 
-	public void setHydroRSD4ASHP2(BigDecimal hydroRSD4ASHP2) {
-		this.hydroRSD4ASHP2 = hydroRSD4ASHP2;
+	public ScadaDataEntity getTotalIpp() {
+		return totalIpp;
+	}
+
+	public ScadaDataEntity getTotalIppGVK() {
+		return totalIppGVK;
+	}
+
+	public ScadaDataEntity getTotalIppRajpura() {
+		return totalIppRajpura;
+	}
+
+	public ScadaDataEntity getTotalIppTalwandiSabo() {
+		return totalIppTalwandiSabo;
+	}
+
+	public ScadaDataEntity getTotalResGeneration() {
+		return totalResGeneration;
+	}
+
+	public ScadaDataEntity getTotalRSD() {
+		return totalRSD;
+	}
+
+	
+
+	public ScadaDataEntity getTotalThermal() {
+		return totalThermal;
+	}
+
+	public void setGrossGeneration(ScadaDataJsonPojo grossGeneration) {
+		this.grossGeneration = grossGeneration;
 	}
 
 
-	public void setHydroRSD4MHP(BigDecimal hydroRSD4MHP) {
-		this.hydroRSD4MHP = hydroRSD4MHP;
+	public void setHydroRSD1(ScadaDataEntity hydroRSD1) {
+		this.hydroRSD1 = hydroRSD1;
 	}
 
-	public void setHydroRSD4UBDC(BigDecimal hydroRSD4UBDC) {
-		this.hydroRSD4UBDC = hydroRSD4UBDC;
+	public void setHydroRSD2(ScadaDataEntity hydroRSD2) {
+		this.hydroRSD2 = hydroRSD2;
 	}
 
-	public void setHydroShanan(BigDecimal hydroShanan) {
+	public void setHydroRSD3(ScadaDataEntity hydroRSD3) {
+		this.hydroRSD3 = hydroRSD3;
+	}
+
+	public void setHydroRSD4(ScadaDataEntity hydroRSD4) {
+		this.hydroRSD4 = hydroRSD4;
+	}
+
+	public void setHydroRSDASHP1(ScadaDataEntity hydroRSDASHP1) {
+		this.hydroRSDASHP1 = hydroRSDASHP1;
+	}
+
+	public void setHydroRSDASHP2(ScadaDataEntity hydroRSDASHP2) {
+		this.hydroRSDASHP2 = hydroRSDASHP2;
+	}
+
+	public void setHydroRSDMHP(ScadaDataEntity hydroRSDMHP) {
+		this.hydroRSDMHP = hydroRSDMHP;
+	}
+
+	public void setHydroRSDUBDC(ScadaDataEntity hydroRSDUBDC) {
+		this.hydroRSDUBDC = hydroRSDUBDC;
+	}
+
+	public void setHydroShanan(ScadaDataEntity hydroShanan) {
 		this.hydroShanan = hydroShanan;
 	}
 
-	public void setHydroShananJog1(BigDecimal hydroShananJog1) {
+	public void setHydroShananJog1(ScadaDataEntity hydroShananJog1) {
 		this.hydroShananJog1 = hydroShananJog1;
 	}
 
-	public void setHydroShananJog2(BigDecimal hydroShananJog2) {
+	public void setHydroShananJog2(ScadaDataEntity hydroShananJog2) {
 		this.hydroShananJog2 = hydroShananJog2;
 	}
 
-	public void setHydroShananJog3(BigDecimal hydroShananJog3) {
+	public void setHydroShananJog3(ScadaDataEntity hydroShananJog3) {
 		this.hydroShananJog3 = hydroShananJog3;
 	}
 
-	public void setHydroShananJog4(BigDecimal hydroShananJog4) {
+	public void setHydroShananJog4(ScadaDataEntity hydroShananJog4) {
 		this.hydroShananJog4 = hydroShananJog4;
 	}
 
-	public void setHydroShananJog5(BigDecimal hydroShananJog5) {
+	public void setHydroShananJog5(ScadaDataEntity hydroShananJog5) {
 		this.hydroShananJog5 = hydroShananJog5;
 	}
 
-	public void setHydroShananJog6(BigDecimal hydroShananJog6) {
+	public void setHydroShananJog6(ScadaDataEntity hydroShananJog6) {
 		this.hydroShananJog6 = hydroShananJog6;
 	}
 
-	public void setIppGVK1(BigDecimal ippGVK1) {
+	public void setIppGVK1(ScadaDataEntity ippGVK1) {
 		this.ippGVK1 = ippGVK1;
 	}
 
-	public void setIppGVK2(BigDecimal ippGVK2) {
+	public void setIppGVK2(ScadaDataEntity ippGVK2) {
 		this.ippGVK2 = ippGVK2;
 	}
 
-	public void setIppGVK3(BigDecimal ippGVK3) {
+	public void setIppGVK3(ScadaDataEntity ippGVK3) {
 		this.ippGVK3 = ippGVK3;
 	}
 
-	public void setIppRajpura1(BigDecimal ippRajpura1) {
+	public void setIppRajpura1(ScadaDataEntity ippRajpura1) {
 		this.ippRajpura1 = ippRajpura1;
 	}
 
-	public void setIppRajpura2(BigDecimal ippRajpura2) {
+	public void setIppRajpura2(ScadaDataEntity ippRajpura2) {
 		this.ippRajpura2 = ippRajpura2;
 	}
 
-	public void setIppRajpura3(BigDecimal ippRajpura3) {
+	public void setIppRajpura3(ScadaDataEntity ippRajpura3) {
 		this.ippRajpura3 = ippRajpura3;
 	}
 
-	public void setIppTalwandiSabo1(BigDecimal ippTalwandiSabo1) {
+	public void setIppTalwandiSabo1(ScadaDataEntity ippTalwandiSabo1) {
 		this.ippTalwandiSabo1 = ippTalwandiSabo1;
 	}
 
-	public void setIppTalwandiSabo2(BigDecimal ippTalwandiSabo2) {
+	public void setIppTalwandiSabo2(ScadaDataEntity ippTalwandiSabo2) {
 		this.ippTalwandiSabo2 = ippTalwandiSabo2;
 	}
 
-	public void setIppTalwandiSabo3(BigDecimal ippTalwandiSabo3) {
+	public void setIppTalwandiSabo3(ScadaDataEntity ippTalwandiSabo3) {
 		this.ippTalwandiSabo3 = ippTalwandiSabo3;
 	}
 
-	public void setThermalGGSSTPRopar1(BigDecimal thermalGGSSTPRopar1) {
+	public void setResNonSolar(ScadaDataEntity resNonSolar) {
+		this.resNonSolar = resNonSolar;
+	}
+
+	public void setResSolar(ScadaDataEntity resSolar) {
+		this.resSolar = resSolar;
+	}
+
+	public void setThermalGGSSTPRopar1(ScadaDataEntity thermalGGSSTPRopar1) {
 		this.thermalGGSSTPRopar1 = thermalGGSSTPRopar1;
 	}
 
-	public void setThermalGGSSTPRopar2(BigDecimal thermalGGSSTPRopar2) {
+	public void setThermalGGSSTPRopar2(ScadaDataEntity thermalGGSSTPRopar2) {
 		this.thermalGGSSTPRopar2 = thermalGGSSTPRopar2;
 	}
 
-	public void setThermalGGSSTPRopar3(BigDecimal thermalGGSSTPRopar3) {
+	public void setThermalGGSSTPRopar3(ScadaDataEntity thermalGGSSTPRopar3) {
 		this.thermalGGSSTPRopar3 = thermalGGSSTPRopar3;
 	}
 
-	public void setThermalGGSSTPRopar4(BigDecimal thermalGGSSTPRopar4) {
+	public void setThermalGGSSTPRopar4(ScadaDataEntity thermalGGSSTPRopar4) {
 		this.thermalGGSSTPRopar4 = thermalGGSSTPRopar4;
 	}
 
-	public void setThermalGGSSTPRopar5(BigDecimal thermalGGSSTPRopar5) {
+	public void setThermalGGSSTPRopar5(ScadaDataEntity thermalGGSSTPRopar5) {
 		this.thermalGGSSTPRopar5 = thermalGGSSTPRopar5;
 	}
 
-	public void setThermalGGSSTPRopar6(BigDecimal thermalGGSSTPRopar6) {
+	public void setThermalGGSSTPRopar6(ScadaDataEntity thermalGGSSTPRopar6) {
 		this.thermalGGSSTPRopar6 = thermalGGSSTPRopar6;
 	}
 
-	public void setThermalGHTPLehraMohabbat1(BigDecimal thermalGHTPLehraMohabbat1) {
+	public void setThermalGHTPLehraMohabbat1(ScadaDataEntity thermalGHTPLehraMohabbat1) {
 		this.thermalGHTPLehraMohabbat1 = thermalGHTPLehraMohabbat1;
 	}
 
-	public void setThermalGHTPLehraMohabbat2(BigDecimal thermalGHTPLehraMohabbat2) {
+	public void setThermalGHTPLehraMohabbat2(ScadaDataEntity thermalGHTPLehraMohabbat2) {
 		this.thermalGHTPLehraMohabbat2 = thermalGHTPLehraMohabbat2;
 	}
 
-	public void setThermalGHTPLehraMohabbat3(BigDecimal thermalGHTPLehraMohabbat3) {
+	public void setThermalGHTPLehraMohabbat3(ScadaDataEntity thermalGHTPLehraMohabbat3) {
 		this.thermalGHTPLehraMohabbat3 = thermalGHTPLehraMohabbat3;
 	}
 
-	public void setThermalGHTPLehraMohabbat4(BigDecimal thermalGHTPLehraMohabbat4) {
+	public void setThermalGHTPLehraMohabbat4(ScadaDataEntity thermalGHTPLehraMohabbat4) {
 		this.thermalGHTPLehraMohabbat4 = thermalGHTPLehraMohabbat4;
 	}
 
-	public void setThermalGHTPLehraMohabbat5(BigDecimal thermalGHTPLehraMohabbat5) {
+
+
+	public void setThermalGHTPLehraMohabbat5(ScadaDataEntity thermalGHTPLehraMohabbat5) {
 		this.thermalGHTPLehraMohabbat5 = thermalGHTPLehraMohabbat5;
 	}
 
-	public void setThermalGHTPLehraMohabbat6(BigDecimal thermalGHTPLehraMohabbat6) {
+
+
+	public void setThermalGHTPLehraMohabbat6(ScadaDataEntity thermalGHTPLehraMohabbat6) {
 		this.thermalGHTPLehraMohabbat6 = thermalGHTPLehraMohabbat6;
 	}
 
-	public void setTotalHydro(BigDecimal totalHydro) {
+
+
+	public void setTotalGGSSTPRopar(ScadaDataEntity totalGGSSTPRopar) {
+		this.totalGGSSTPRopar = totalGGSSTPRopar;
+	}
+
+
+
+	public void setTotalGHTPLehraMohabbat(ScadaDataEntity totalGHTPLehraMohabbat) {
+		this.totalGHTPLehraMohabbat = totalGHTPLehraMohabbat;
+	}
+
+
+
+	public void setTotalHydro(ScadaDataEntity totalHydro) {
 		this.totalHydro = totalHydro;
 	}
 
-	public void setTotalIpp(BigDecimal totalIpp) {
+
+
+	public void setTotalIpp(ScadaDataEntity totalIpp) {
 		this.totalIpp = totalIpp;
 	}
 
-	public void setTotalIppRajpura(BigDecimal totalIppRajpura) {
+
+
+	public void setTotalIppGVK(ScadaDataEntity totalIppGVK) {
+		this.totalIppGVK = totalIppGVK;
+	}
+
+
+
+	public void setTotalIppRajpura(ScadaDataEntity totalIppRajpura) {
 		this.totalIppRajpura = totalIppRajpura;
 	}
 
-	public void setTotalIppTalwandiSabo(BigDecimal totalIppTalwandiSabo) {
+
+
+	public void setTotalIppTalwandiSabo(ScadaDataEntity totalIppTalwandiSabo) {
 		this.totalIppTalwandiSabo = totalIppTalwandiSabo;
 	}
 
-	public void setTotalResGeneration(BigDecimal totalResGeneration) {
+
+
+	public void setTotalResGeneration(ScadaDataEntity totalResGeneration) {
 		this.totalResGeneration = totalResGeneration;
 	}
 
-	public void setTotalThermal(BigDecimal totalThermal) {
+
+
+	public void setTotalRSD(ScadaDataEntity totalRSD) {
+		this.totalRSD = totalRSD;
+	}
+
+
+
+	public void setTotalThermal(ScadaDataEntity totalThermal) {
 		this.totalThermal = totalThermal;
 	}
 

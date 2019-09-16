@@ -11,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LatestDynamicData {
 
-	//	Updated at: 09:40:17
-	//	Frequency (Hz): 	49.98
-	//	Drawal (MW): 	5492
-	//	Schedule (MW): 	5585
-	//	OD(+)/UD(-) (MW): 	-93
-	//	Load (MW): 	10004
+	//	Updated at: 			09:40:17
+	//	Frequency (Hz): 		49.98
+	//	Drawal (MW): 			5492
+	//	Schedule (MW): 			5585
+	//	OD(+)/UD(-) (MW): 		-93
+	//	Load (MW): 				10004
 
 	private LocalDate dateLoad;
 	private LocalTime timeLoad;

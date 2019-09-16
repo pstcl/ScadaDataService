@@ -1,10 +1,10 @@
-package org.pstcl.sldc.scada.model;
+package org.pstcl.sldc.scada.model.entity;
 
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+//COMPOSITE KEY FOR ENTITY
 
 
 public class ScadaEntityId implements Serializable{

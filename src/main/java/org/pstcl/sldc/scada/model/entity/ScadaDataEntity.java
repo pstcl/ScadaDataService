@@ -1,4 +1,4 @@
-package org.pstcl.sldc.scada.model;
+package org.pstcl.sldc.scada.model.entity;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,7 +23,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="scada_data_repo_demo")
+@Table(name="scada_data_repo")
 public class ScadaDataEntity {
 
 	public ScadaEntityId getEntityId() {

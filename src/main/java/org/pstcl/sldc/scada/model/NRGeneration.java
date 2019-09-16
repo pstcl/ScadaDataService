@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.pstcl.sldc.scada.model.entity.ScadaDataEntity;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class NRGeneration {

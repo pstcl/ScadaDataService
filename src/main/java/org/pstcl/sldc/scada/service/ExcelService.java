@@ -2,9 +2,7 @@ package org.pstcl.sldc.scada.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -24,215 +22,61 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.pstcl.sldc.scada.model.LatestDynamicData;
-import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel;
-import org.pstcl.sldc.scada.model.ScadaDataEntity;
-import org.pstcl.sldc.scada.repository.ScadaDataEntityRepository;
+import org.pstcl.sldc.scada.model.entity.ScadaDataEntity;
 import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
-import org.pstcl.sldc.scada.util.GlobalProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
-@Service
-public class ExcelService {
-
-	@Autowired
-	protected GlobalProperties globalProperties;
+public abstract class ExcelService {
 
 
 	@Autowired
 	protected ExcelParameterNameProperties parameterNames;
 
 
-	@Autowired
-	ScadaDataEntityRepository repository;
-
-	public LatestDynamicData getLatestDynamicData() {
-		File fileToRead = null;
-		LatestDynamicData dynamicData=null;
-		try
-		{
-			dynamicData= new LatestDynamicData();
-			fileToRead=getFileCopy();
-			List<ScadaDataEntity> list= readExcel(fileToRead);
-
-			for (ScadaDataEntity scadaDataEntity : list) {
-
-				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getFrequencyParameterName()))
-				{
-					dynamicData.setFrequencyHz(scadaDataEntity.getValue());
-
-				}
-				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getDrawalParameterName()))
-				{
-					dynamicData.setDrawalMW(scadaDataEntity.getValue());
-
-				}
-				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getLoadParameterName()))
-				{
-					dynamicData.setLoadMW(scadaDataEntity.getValue());
-				}
-				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getScheduleParameterName()))
-				{
-					dynamicData.setScheduleMW(scadaDataEntity.getValue());
-				}
-				if(scadaDataEntity.getDdeItem().equalsIgnoreCase(parameterNames.getOdudParameterName()))
-				{
-					dynamicData.setOdUD(scadaDataEntity.getValue());
-					LocalDate localDate=scadaDataEntity.getDateS();
-					LocalTime localTime=scadaDataEntity.getTimeS();
-
-					LocalDateTime dateTime= LocalDateTime.of(localDate, localTime);
-
-					//				Date date = new Date(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth(),localTime.getHour(),localTime.getMinute(), localTime.getSecond());
-					dynamicData.setUpdateDate(dateTime);
-
-				}
-
-			}
-		}	
-		catch(Exception e)
-		{
-			e.printStackTrace();
-
-		}
-		finally
-		{
-			deleteFile(fileToRead);
-
-		}
-
-
-		deleteFile(fileToRead);
-		return dynamicData;
-	}
-
-
-
-
-	@Scheduled(fixedRate = 30*1000)
-	public void scheduleFixedRateTask() {
-
-		File fileToRead=getFileCopy();
-		List<ScadaDataEntity> list;
-
-
-
-		list= readExcel(fileToRead);
-		//		//REMOVE THIS BLOCK BELOW
-		//		//REMOVE THIS BLOCK BELOW
-		//		//REMOVE THIS BLOCK BELOW
-		//		//REMOVE THIS BLOCK BELOW
-		//		for (ScadaDataEntity entity : list) {
-		//			
-		//			DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		//			
-		//			Date dateS = new Date(System.currentTimeMillis());
-		//			LocalDateTime localDateTime =convertToLocalDateTimeViaInstant(dateS);
-		//		       
-		//			entity.setDateS(localDateTime.toLocalDate());
-		//
-		//			entity.setTimeS(localDateTime.toLocalTime());
-		//			double random=(Math.random()/10) + .95;
-		//			entity.setValue(entity.getValue().multiply(new BigDecimal(random)));
-		//		}
-		//		//REMOVE THIS BLOCK ABOVE
-		//
-		//		//REMOVE THIS BLOCK ABOVE
-		//
-		//		//REMOVE THIS BLOCK ABOVE
-
-		repository.saveAll(list);
-		deleteFile(fileToRead);
-
-		//		for (ScadaDataEntity scadaEntity : list) {
-		//			System.out.println(globalProperties.getFileLocation()+""+globalProperties.getFileName());
-		//			
-		//		}
-	}
-
-
-	protected File getFileCopy()
-	{
-		File originalFile=new File(globalProperties.getFileLocation()+globalProperties.getFileName());
-		String tempDirectoryName = globalProperties.getTempDirName() ;
-
-		File tempDirectory = new File(tempDirectoryName);
-
-		if (!tempDirectory.exists()) {
-			tempDirectory.mkdirs();
-			// If you require it to make the entire directory path including parents,
-			// use directory.mkdirs(); here instead.
-		}
-		File tempFile = new File(tempDirectory, (System.currentTimeMillis())+originalFile.getName());
-		Integer size=-1;
-
-		try {
-			size=FileCopyUtils.copy(originalFile, tempFile);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return tempFile;
-
-	}
-
-
-	protected Map<String,int[]> getColumnIndices(Sheet datatypeSheet, File fileToRead,Workbook wb)
-	{
-		Map<String,int[]> map=new HashMap<>();
+	protected Map<String, int[]> getColumnIndices(Sheet datatypeSheet, File fileToRead, Workbook wb) {
+		Map<String, int[]> map = new HashMap<>();
 		for (Row row : datatypeSheet) {
 
 			for (Cell cell : row) {
 
 				if (cell.getCellType() == CellType.STRING) {
-					if (cell.getRichStringCellValue().getString().trim().equals("DdeItem")) 
-					{
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+					if (cell.getRichStringCellValue().getString().trim().equals("DdeItem")) {
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 
 					}
 
-					if (cell.getRichStringCellValue().getString().trim().equals("PointsID")) 
-					{
+					if (cell.getRichStringCellValue().getString().trim().equals("PointsID")) {
 
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
 
-					if (cell.getRichStringCellValue().getString().trim().equals("DateS")) 
-					{
+					if (cell.getRichStringCellValue().getString().trim().equals("DateS")) {
 
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
 
-					if (cell.getRichStringCellValue().getString().trim().equals("TimeS")) 
-					{
+					if (cell.getRichStringCellValue().getString().trim().equals("TimeS")) {
 
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
-					if (cell.getRichStringCellValue().getString().trim().equals("Time")) 
-					{
+					if (cell.getRichStringCellValue().getString().trim().equals("Time")) {
 
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
-					if (cell.getRichStringCellValue().getString().trim().equals("Value")) 
-					{
+					if (cell.getRichStringCellValue().getString().trim().equals("Value")) {
 
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
-					if (cell.getRichStringCellValue().getString().trim().equals("Flag")) 
-					{
+					if (cell.getRichStringCellValue().getString().trim().equals("Flag")) {
 
-						int[] array={cell.getColumnIndex(),cell.getRowIndex()};
+						int[] array = { cell.getColumnIndex(), cell.getRowIndex() };
 						map.put(cell.getRichStringCellValue().getString().trim(), array);
 					}
 				}
@@ -242,64 +86,39 @@ public class ExcelService {
 
 	}
 
-
-	public List<ScadaDataEntity> readExcel(File fileToRead) {
-		List<ScadaDataEntity> list=new ArrayList();
-		FileInputStream inputStream=null;
-		try {
-			inputStream = new FileInputStream(fileToRead);
-			Workbook workbook = new XSSFWorkbook(inputStream);
-			//workbook.getSettings().setRegion(CountryCode.INDIA); 
-			Sheet datatypeSheet = workbook.getSheetAt(0);
-			Map<String,int[]> columnIndices= getColumnIndices(datatypeSheet,fileToRead,workbook);
-
-			if(columnIndices!=null&&!columnIndices.isEmpty())
-			{
-				for (Row row : datatypeSheet) {
-					ScadaDataEntity scadaEntity= getRowScadaEntity( columnIndices, row);
-
-					if(null!=scadaEntity)
-					{
-						list.add(scadaEntity);
-					}
-				}
-			}
-			inputStream.close();
-			return list;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-
-
-	}
-
-
+//	public List<ScadaDataEntity> readExcel(File fileToRead) {
+//		List<ScadaDataEntity> list = new ArrayList();
+//		FileInputStream inputStream = null;
+//		try {
+//			inputStream = new FileInputStream(fileToRead);
+//			Workbook workbook = new XSSFWorkbook(inputStream);
+//			// workbook.getSettings().setRegion(CountryCode.INDIA);
+//			Sheet datatypeSheet = workbook.getSheetAt(0);
+//			Map<String, int[]> columnIndices = getColumnIndices(datatypeSheet, fileToRead, workbook);
+//
+//			if (columnIndices != null && !columnIndices.isEmpty()) {
+//				for (Row row : datatypeSheet) {
+//					ScadaDataEntity scadaEntity = getRowScadaEntity(columnIndices, row);
+//
+//					if (null != scadaEntity) {
+//						list.add(scadaEntity);
+//					}
+//				}
+//			}
+//			inputStream.close();
+//			return list;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//
+//	}
 
 	public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
-		return dateToConvert.toInstant()
-				.atZone(ZoneId.systemDefault())
-				.toLocalDateTime();
+		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
-
-
-
-	protected Boolean deleteFile(File tempFile) {
-		Boolean zipDeleted = false;
-		try {
-			zipDeleted = Files.deleteIfExists(tempFile.toPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return zipDeleted;
-	}
-
-
-
+	
 
 	public HashMap<String, ScadaDataEntity> readExcelToHashMap(File fileToRead) {
 		HashMap<String, ScadaDataEntity> list = new HashMap();
@@ -314,10 +133,9 @@ public class ExcelService {
 			if (columnIndices != null && !columnIndices.isEmpty()) {
 
 				for (Row row : datatypeSheet) {
-					ScadaDataEntity scadaEntity= getRowScadaEntity( columnIndices, row);
-					if(scadaEntity!=null)
-					{
-						list.put(scadaEntity.getDdeItem().toLowerCase(),scadaEntity);
+					ScadaDataEntity scadaEntity = getRowScadaEntity(columnIndices, row);
+					if (scadaEntity != null) {
+						list.put(scadaEntity.getDdeItem().toLowerCase(), scadaEntity);
 					}
 				}
 			}
@@ -332,12 +150,9 @@ public class ExcelService {
 
 	}
 
-
-
-
 	private ScadaDataEntity getRowScadaEntity(Map<String, int[]> columnIndices, Row row) {
 
-		ScadaDataEntity entity=null;
+		ScadaDataEntity entity = null;
 		try {
 			if (row.getRowNum() != columnIndices.get("DdeItem")[1]
 					&& row.getCell(columnIndices.get("DdeItem")[0]) != null
@@ -355,30 +170,27 @@ public class ExcelService {
 				if (null != row.getCell(columnIndices.get("DateS")[0])) {
 
 					DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-					Date dateS = new Date(formatter
-							.parse(row.getCell(columnIndices.get("DateS")[0]).getStringCellValue()).getTime());
-					entity.setDateS(LocalDate
-							.from(Instant.ofEpochMilli(dateS.getTime()).atZone(ZoneId.systemDefault())));
+					Date dateS = new Date(
+							formatter.parse(row.getCell(columnIndices.get("DateS")[0]).getStringCellValue()).getTime());
+					entity.setDateS(
+							LocalDate.from(Instant.ofEpochMilli(dateS.getTime()).atZone(ZoneId.systemDefault())));
 				}
 				if (null != row.getCell(columnIndices.get("TimeS")[0])) {
 
 					DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 					// java.sql.Time timeValue = new
 					// java.sql.Time(formatter.parse(row.getCell(columnIndices.get("TimeS")[0]).getStringCellValue()).getTime());
-					entity.setTimeS(
-							LocalTime.parse(row.getCell(columnIndices.get("TimeS")[0]).getStringCellValue()));
+					entity.setTimeS(LocalTime.parse(row.getCell(columnIndices.get("TimeS")[0]).getStringCellValue()));
 				}
 				if (null != row.getCell(columnIndices.get("Time")[0])) {
 
 					if (row.getCell(columnIndices.get("Time")[0]).getCellType() == CellType.NUMERIC) {
-						entity.setDateTimeWrongFormat(
-								row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
+						entity.setDateTimeWrongFormat(row.getCell(columnIndices.get("Time")[0]).getDateCellValue());
 					}
 
 				}
 				if (null != row.getCell(columnIndices.get("Value")[0])) {
-					entity.setValue(
-							new BigDecimal(row.getCell(columnIndices.get("Value")[0]).getNumericCellValue()));
+					entity.setValue(new BigDecimal(row.getCell(columnIndices.get("Value")[0]).getNumericCellValue()));
 				}
 				if (null != row.getCell(columnIndices.get("Flag")[0])) {
 					entity.setFlag(row.getCell(columnIndices.get("Flag")[0]).getStringCellValue());
@@ -392,7 +204,5 @@ public class ExcelService {
 		return entity;
 
 	}
-
-
 
 }

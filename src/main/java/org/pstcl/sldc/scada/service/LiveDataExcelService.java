@@ -1,32 +1,68 @@
 package org.pstcl.sldc.scada.service;
 
 import java.io.File;
-import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 
-import org.apache.poi.ss.usermodel.Cell;
+import org.pstcl.sldc.scada.model.LatestDynamicData;
 import org.pstcl.sldc.scada.model.NRGeneration;
-import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel2;
-import org.pstcl.sldc.scada.model.ScadaDataEntity;
-import org.pstcl.sldc.scada.model.ScadaEntity;
-import org.pstcl.sldc.scada.util.ExcelParameterNameProperties;
-import org.pstcl.sldc.scada.util.GlobalProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.pstcl.sldc.scada.model.PunjabOwnGenerationModel;
+import org.pstcl.sldc.scada.model.entity.ScadaDataEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
 @Service
 public class LiveDataExcelService extends  ExcelService {
 
 
-	public PunjabOwnGenerationModel2 getPunjabGenData2() {
-		File fileToRead = null;
-		PunjabOwnGenerationModel2 ownGenerationModel = null;
+public LatestDynamicData getLatestDynamicData(File fileToRead) {
+		
+		LatestDynamicData dynamicData = null;
+		try {
+			dynamicData = new LatestDynamicData();
+			
+			HashMap<String, ScadaDataEntity> map = readExcelToHashMap(fileToRead);
+
+			ScadaDataEntity scadaDataEntity = map.get(parameterNames.getFrequencyParameterName());
+			dynamicData.setFrequencyHz(scadaDataEntity.getValue());
+
+			scadaDataEntity = map.get(parameterNames.getDrawalParameterName());
+			dynamicData.setDrawalMW(scadaDataEntity.getValue());
+
+			scadaDataEntity = map.get(parameterNames.getLoadParameterName());
+			dynamicData.setLoadMW(scadaDataEntity.getValue());
+
+			scadaDataEntity = map.get(parameterNames.getScheduleParameterName());
+			dynamicData.setScheduleMW(scadaDataEntity.getValue());
+			scadaDataEntity = map.get(parameterNames.getOdudParameterName());
+
+			dynamicData.setOdUD(scadaDataEntity.getValue());
+			LocalDate localDate = scadaDataEntity.getDateS();
+			LocalTime localTime = scadaDataEntity.getTimeS();
+
+			LocalDateTime dateTime = LocalDateTime.of(localDate, localTime);
+
+			// Date date = new
+			// Date(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth(),localTime.getHour(),localTime.getMinute(),
+			// localTime.getSecond());
+			dynamicData.setUpdateDate(dateTime);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		return dynamicData;
+	}
+
+	
+	public PunjabOwnGenerationModel getPunjabGenData2(File fileToRead) {
+		
+		PunjabOwnGenerationModel ownGenerationModel = null;
 
 		try {
-			ownGenerationModel = new PunjabOwnGenerationModel2();
-			fileToRead = getFileCopy();
+			ownGenerationModel = new PunjabOwnGenerationModel();
+			
 			HashMap<String, ScadaDataEntity> list = readExcelToHashMap(fileToRead);
 
 			ownGenerationModel.setHydroRSD1(list.get(parameterNames.getRsd1ParameterName().toLowerCase()));
@@ -80,23 +116,18 @@ public class LiveDataExcelService extends  ExcelService {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		} finally {
-			deleteFile(fileToRead);
-
-		}
-
-		deleteFile(fileToRead);
+		} 
 		return ownGenerationModel;
 	}
 	
 	
-	public NRGeneration getNRGeneration() {
-		File fileToRead = null;
+	public NRGeneration getNRGeneration(File fileToRead ) {
+		
 		NRGeneration nrGenerationModel = null;
 
 		try {
 			nrGenerationModel = new NRGeneration();
-			fileToRead = getFileCopy();
+			
 			HashMap<String, ScadaDataEntity> list = readExcelToHashMap(fileToRead);
 			
 			nrGenerationModel.setChd_drwl(list.get(parameterNames.getChd_drwlParameterName().toLowerCase()));
@@ -140,15 +171,11 @@ public class LiveDataExcelService extends  ExcelService {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		} finally {
-			deleteFile(fileToRead);
-
 		}
-
-		deleteFile(fileToRead);
 		return nrGenerationModel;
 	}
-	
 
+
+	
 
 }
