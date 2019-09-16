@@ -53,7 +53,7 @@ public class DataService {
 		}
 	}
 
-	@Scheduled(fixedRate = 3000 * 1000)
+	@Scheduled(fixedRate = 30 * 1000)
 	public void saveFileDataToRepoScheduled() {
 		File fileToRead = getFileCopy();
 		HashMap<String, ScadaDataEntity> map;
