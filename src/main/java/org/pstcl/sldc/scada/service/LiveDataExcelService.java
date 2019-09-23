@@ -1,6 +1,7 @@
 package org.pstcl.sldc.scada.service;
 
 import java.io.File;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,19 +26,19 @@ public class LiveDataExcelService extends  ExcelService {
 			HashMap<String, ScadaDataEntity> map = readExcelToHashMap(fileToRead);
 
 			ScadaDataEntity scadaDataEntity = map.get(parameterNames.getFrequencyParameterName().toLowerCase());
-			dynamicData.setFrequencyHz(scadaDataEntity.getValue());
+			dynamicData.setFrequencyHz(scadaDataEntity.getValue().setScale(2,RoundingMode.HALF_UP));
 
 			scadaDataEntity = map.get(parameterNames.getDrawalParameterName().toLowerCase());
-			dynamicData.setDrawalMW(scadaDataEntity.getValue());
+			dynamicData.setDrawalMW(scadaDataEntity.getValue().setScale(0,RoundingMode.HALF_UP));
 
 			scadaDataEntity = map.get(parameterNames.getLoadParameterName().toLowerCase());
-			dynamicData.setLoadMW(scadaDataEntity.getValue());
+			dynamicData.setLoadMW(scadaDataEntity.getValue().setScale(0,RoundingMode.HALF_UP));
 
 			scadaDataEntity = map.get(parameterNames.getScheduleParameterName().toLowerCase());
-			dynamicData.setScheduleMW(scadaDataEntity.getValue());
+			dynamicData.setScheduleMW(scadaDataEntity.getValue().setScale(0,RoundingMode.HALF_UP));
 			scadaDataEntity = map.get(parameterNames.getOdudParameterName().toLowerCase());
 
-			dynamicData.setOdUD(scadaDataEntity.getValue());
+			dynamicData.setOdUD(scadaDataEntity.getValue().setScale(0,RoundingMode.HALF_UP));
 			LocalDate localDate = scadaDataEntity.getDateS();
 			LocalTime localTime = scadaDataEntity.getTimeS();
 

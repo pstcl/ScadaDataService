@@ -85,7 +85,7 @@ public class HistoricalDataEntity {
 		return this.entityId.getTimeS();
 	}
 	public BigDecimal getValue() {
-		return value.setScale(0,RoundingMode.HALF_UP);
+		return value.setScale(2,RoundingMode.HALF_UP);
 
 	}
 	public void setDateS(LocalDate dateS) {

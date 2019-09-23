@@ -89,7 +89,7 @@ public class ScadaDataEntity {
 	}
 	
 	public BigDecimal getValue() {
-		return value.setScale(0,RoundingMode.HALF_UP);
+		return value;
 		
 	}
 	public void setValue(BigDecimal value) {
